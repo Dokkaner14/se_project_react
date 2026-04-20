@@ -1,0 +1,49 @@
+.footer {
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Cabinet";
+  margin-top: 171px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 0 20px;
+    margin-top: 100px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    padding: 0 12px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0;
+  }
+}
+
+.footer__signature {
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+  animation: pulse 3s ease-in-out infinite;
+  transition: color 0.5s ease-in-out;
+}
+
+.footer__signature:hover {
+  color: orangered;
+}

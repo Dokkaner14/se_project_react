@@ -1,0 +1,57 @@
+.item__card {
+  position: relative;
+  width: 100%;
+}
+
+.item__card-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.item__card-title {
+  position: absolute;
+  top: 10px;
+  left: 115px;
+  margin: 0;
+  z-index: 2;
+  background-color: white;
+  color: black;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+}
+.weather__card-info {
+  color: red;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .item__card-title {
+    left: 16px;
+    top: 8px;
+    font-size: 14px;
+    padding: 3px 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .item__card {
+    width: 100%;
+  }
+
+  .item__card-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .item__card-title {
+    left: 12px;
+    top: 6px;
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+}
