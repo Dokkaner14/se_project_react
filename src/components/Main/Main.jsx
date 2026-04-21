@@ -25,7 +25,7 @@ function Main({ weather, clothingItems, onCardClick }) {
 
       <ul className="main__items">
         {filteredItems.length === 0 ? (
-          <p>No items for this weather</p>
+          <li className="main__empty">No items for this weather</li>
         ) : (
           filteredItems.map((item) => (
             <ItemCard key={item._id} item={item} onCardClick={onCardClick} />

@@ -17,7 +17,14 @@ function ModalWithForm({
         className="modal__content modal__content_type_image"
         onClick={(evt) => evt.stopPropagation()}
       >
-        <button type="button" className="modal__close" onClick={onClose} />
+        <button
+          type="button"
+          className="modal__close-btn"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
         <h2 className="modal__title">{title} </h2>
         <form className="modal__form" name={name} onSubmit={onSubmit}>
           {children}

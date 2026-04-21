@@ -14,7 +14,9 @@ function ItemModal({ card, onClose }) {
           className="modal__close-btn"
           onClick={onClose}
           aria-label="Close"
-        />
+        >
+          ×
+        </button>
 
         <img src={card.link} alt={card.name} className="modal__preview-image" />
 

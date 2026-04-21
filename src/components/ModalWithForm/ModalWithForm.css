@@ -82,13 +82,7 @@
     right: 20px;
     width: 16px;
     height: 16px;
-  }
-
-  .modal__close-btn::before,
-  .modal__close-btn::after {
-    width: 16px;
-    height: 1.5px;
-    top: 7px;
+    font-size: 10px;
   }
 }
 .modal__title {
@@ -189,29 +183,16 @@
   right: 28px;
   width: 20px;
   height: 20px;
-  border: none;
-  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
   padding: 0;
   cursor: pointer;
-}
-
-.modal__close-btn::before,
-.modal__close-btn::after {
-  content: "";
-  position: absolute;
-  top: 9px;
-  left: 0;
-  width: 20px;
-  height: 2px;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal__close-btn::before {
-  transform: rotate(45deg);
-}
-
-.modal__close-btn::after {
-  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .modal__content_type_preview {

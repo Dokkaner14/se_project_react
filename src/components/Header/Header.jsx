@@ -2,7 +2,7 @@ import "./Header.css";
 import avatar from "../../assets/avatar.png";
 import logo from "../../assets/smaller-logo.png";
 
-function Header({ onAddClick }) {
+function Header({ onAddClick, city }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -10,14 +10,12 @@ function Header({ onAddClick }) {
 
   return (
     <header className="header">
-      {/* Logo on the left */}
+      {/* Logo and Date/City on the left */}
       <div className="header__left">
         <img src={logo} alt="WTWR app logo" className="smaller__logo" />
-      </div>
-
-      {/* Date in the center */}
-      <div className="header__center">
-        <p className="main__date-location">{currentDate}, Chicago</p>
+        <p className="main__date-location">
+          {currentDate}, {city ?? "Loading..."}
+        </p>
       </div>
 
       {/* Add button + User info on the right */}

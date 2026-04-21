@@ -19,22 +19,19 @@ function App() {
   const [weatherType, setWeatherType] = useState("");
 
   function handleOpenModal(modalName, card = null) {
-    console.log("handleOpenModal fired:", modalName, card);
     setActiveModal(modalName);
     setSelectedCard(card);
   } /* Opens the selected modal and stores the clicked card data */
 
   const handleAddClick = () => {
-    console.log("Add clothes clicked");
     setActiveModal("add-garment");
-    console.log("setting activeModal to add-garment");
   };
 
   function handleAddGarmentSubmit(evt) {
     evt.preventDefault();
 
     const newItem = {
-      id: Date.now(),
+      _id: Date.now(),
       name,
       link: imageUrl,
       weather: weatherType,
@@ -73,8 +70,6 @@ function App() {
   /*Runs whenever activeModal changes*/
 
   useEffect(() => {
-    console.log("useEffect running");
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -111,11 +106,8 @@ function App() {
     }
   }, []);
 
-  console.log("current activeModal:", activeModal);
-
   const isFormValid =
     name.trim() !== "" && imageUrl.trim() !== "" && weatherType !== "";
-  console.log("FORM STATE:", name, imageUrl, weatherType, isFormValid);
 
   return (
     <>
@@ -151,6 +143,7 @@ function App() {
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </label>
 
@@ -162,6 +155,7 @@ function App() {
               placeholder="Image URL"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
+              required
             />
           </label>
 
@@ -176,6 +170,7 @@ function App() {
                   value="hot"
                   checked={weatherType === "hot"}
                   onChange={(e) => setWeatherType(e.target.value)}
+                  required
                 />
                 Hot
               </label>

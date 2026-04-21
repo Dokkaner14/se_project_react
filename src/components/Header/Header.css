@@ -6,6 +6,12 @@
   box-sizing: border-box;
 }
 
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .header__right {
   display: flex;
   gap: 16px;
@@ -30,13 +36,17 @@
   padding: 0;
   cursor: pointer;
   width: 116px;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 15px;
   z-index: 10;
   position: relative;
 }
 
 @media screen and (max-width: 768px) {
+  .header__left {
+    gap: 12px;
+  }
+
   .header__right {
     gap: 12px;
   }
@@ -60,6 +70,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+
+  .header__left {
+    gap: 8px;
   }
 
   .header__right {
