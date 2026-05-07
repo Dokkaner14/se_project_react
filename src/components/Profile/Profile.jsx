@@ -18,17 +18,10 @@ function Profile({ clothingItems, openModal, handleCardClick }) {
             +Add new
           </button>
         </div>
-        <ul className="profile__cards-list">
-          {clothingItems.map((item) => {
-            return (
-              <ClothesSection
-                item={item}
-                handleCardClick={handleCardClick}
-                key={item._id}
-              />
-            );
-          })}
-        </ul>
+        <ClothesSection
+          clothingItems={clothingItems}
+          handleCardClick={handleCardClick}
+        />
       </div>
     </section>
   );
