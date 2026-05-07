@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
 import "./Header.css";
-import avatar from "../../assets/avatar.png";
-import logo from "../../assets/smaller-logo.png";
+const Logo = new URL("../../assets/logo.png", import.meta.url).href;
+const AvatarPic = new URL("../../assets/avatar.png", import.meta.url).href;
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ onAddClick, city }) {
+function Header({ openModal, weatherData }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -10,25 +12,25 @@ function Header({ onAddClick, city }) {
 
   return (
     <header className="header">
-      {/* Logo and Date/City on the left */}
-      <div className="header__left">
-        <img src={logo} alt="WTWR app logo" className="smaller__logo" />
-        <p className="main__date-location">
-          {currentDate}, {city ?? "Loading..."}
-        </p>
-      </div>
-
-      {/* Add button + User info on the right */}
-      <div className="header__right">
-        <button className="header__add-clothes-btn" onClick={onAddClick}>
-          {" "}
-          + Add clothes
-        </button>
-
-        <div className="header__user-info">
-          <p className="header__username">Terrence Tegegne</p>
-          <img className="header__avatar" src={avatar} alt="User avatar" />
-        </div>
+      <Link to="/">
+        <img className="header__logo" src={Logo} alt="WTWR LOGO" />
+      </Link>
+      <p className="header__date-location">
+        {currentDate}, {weatherData.city}
+      </p>
+      <ToggleSwitch />
+      <button className="header__add-btn" onClick={openModal}>
+        + Add clothes
+      </button>
+      <div className="header__avatar-section">
+        <p className="header__avatar-name">Joel Quinones</p>
+        <Link to="/profile">
+          <img
+            src={AvatarPic}
+            alt="user avatar photo"
+            className="header__avatar-pic"
+          />
+        </Link>
       </div>
     </header>
   );

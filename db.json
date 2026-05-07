@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "_id": "1",
+      "name": "Light Tee",
+      "imageUrl": "https://via.placeholder.com/320x240?text=Light+Tee",
+      "weather": "warm"
+    },
+    {
+      "_id": "2",
+      "name": "Rain Jacket",
+      "imageUrl": "https://via.placeholder.com/320x240?text=Rain+Jacket",
+      "weather": "cold"
+    },
+    {
+      "_id": "3",
+      "name": "Shorts",
+      "imageUrl": "https://via.placeholder.com/320x240?text=Shorts",
+      "weather": "hot"
+    },
+    {
+      "name": "rain jacket",
+      "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91RqRe4Ie3L._AC_UL1500_.jpg",
+      "weather": "cold",
+      "_id": "p_rP0XB"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

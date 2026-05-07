@@ -1,1 +1,26 @@
 @import "../ModalWithForm/ModalWithForm.css";
+
+.item-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.item-modal__text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.item-modal__delete {
+  color: #ff4d00;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 30px;
+  width: 98.12px;
+  height: 13.62px;
+  margin-right: 20px;
+}

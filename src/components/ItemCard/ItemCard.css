@@ -1,57 +1,49 @@
-.item__card {
+.card {
+  aspect-ratio: 1 / 1;
+  max-width: 325px;
+  width: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  width: 100%;
+  border: 1px solid #0000004d;
+  border-radius: 19px;
+  overflow: hidden;
 }
 
-.item__card-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-}
-
-.item__card-title {
-  position: absolute;
-  top: 10px;
-  left: 115px;
+/* get the text in the cardtitle to fit inside the container still displaying all
+the text. */
+.card__title {
+  width: max-content;
   margin: 0;
-  z-index: 2;
   background-color: white;
-  color: black;
-  padding: 4px 8px;
+  position: absolute;
+  top: 15px;
+  color: #00000099;
   border-radius: 4px;
-  font-family: "Cabinet Grotesk", sans-serif;
-  font-weight: 700;
+  line-height: 20px;
+  font-size: 16px;
+  padding: 2px 12px;
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-align: center;
 }
-.weather__card-info {
-  color: red;
-  font-size: 20px;
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 @media screen and (max-width: 768px) {
-  .item__card-title {
-    left: 16px;
-    top: 8px;
-    font-size: 14px;
-    padding: 3px 6px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .item__card {
-    width: 100%;
+  .card {
+    max-width: 162px;
   }
 
-  .item__card-img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .item__card-title {
-    left: 12px;
-    top: 6px;
-    font-size: 12px;
-    padding: 2px 4px;
+  .card__title {
+    top: 7px;
   }
 }

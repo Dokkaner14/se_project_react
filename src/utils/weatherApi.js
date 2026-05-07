@@ -1,7 +1,33 @@
-import { APIkey, coordinates } from "./constants";
+import { handleServerResponse } from "./api";
 
-export function getWeatherCondition(temp) {
-  if (temp >= 86) {
+function getWeatherData({ latitude, longitude }, apiKey) {
+  return fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`,
+  ).then((res) => {
+    return handleServerResponse(res);
+  });
+}
+
+const filterWeatherData = (data) => {
+  const result = {};
+  result.city = data.name;
+  result.temp = {
+    F: Math.round(data.main.temp),
+    C: Math.round((data.main.temp - 32) * (5 / 9)),
+  };
+  result.type = getWeatherCondition(result.temp.F);
+  result.condition = data.weather[0].main.toLowerCase();
+  result.isDay = isDay(data.sys, Date.now());
+
+  return result;
+};
+
+function isDay({ sunrise, sunset }, now) {
+  return sunrise * 1000 < now && sunset * 1000 > now;
+}
+
+function getWeatherCondition(temp) {
+  if (temp > 86) {
     return "hot";
   } else if (temp >= 66) {
     return "warm";
@@ -9,20 +35,4 @@ export function getWeatherCondition(temp) {
     return "cold";
   }
 }
-
-export function getWeather(
-  lat = coordinates.latitude,
-  lon = coordinates.longitude,
-) {
-  return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${APIkey}`,
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      return {
-        temp: data.main.temp,
-        city: data.name,
-        condition: getWeatherCondition(data.main.temp),
-      };
-    });
-}
+export { getWeatherData, filterWeatherData };

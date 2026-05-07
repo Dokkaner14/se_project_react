@@ -1,0 +1,45 @@
+/*align containers so that headers are aligned*/
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family:
+    Cabinet Grotesk,
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+}
+
+.profile__cards-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 19px;
+  max-width: 1015px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__header {
+  display: flex;
+
+  padding-top: 14px;
+
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.profile__add-btn {
+  color: rgba(0, 0, 0, 0.6);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile__header-title {
+  margin: 0 20px 0 0;
+}

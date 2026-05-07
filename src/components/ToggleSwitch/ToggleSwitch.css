@@ -1,0 +1,54 @@
+.switch__label {
+  position: absolute;
+  top: 35px;
+  right: 330px;
+  width: 56px;
+  height: 28px;
+  border: 2px solid rgba(126, 126, 126, 1);
+  border-radius: 20px;
+
+  cursor: pointer;
+  display: flex;
+}
+
+.switch__input {
+  opacity: 0;
+}
+
+.switch__circle {
+  height: 31px;
+  width: 31px;
+
+  background-color: black;
+  opacity: 1;
+  border-radius: 50%;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+
+  transition: all 0.3s;
+}
+
+.switch__letter {
+  color: gray;
+  position: absolute;
+  top: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+.switch__letter_F {
+  left: 9px;
+}
+
+.switch__letter_C {
+  right: 9px;
+}
+
+.switch__letter_color {
+  color: white;
+}
+
+.switch__input:checked ~ .switch__circle {
+  left: 26px;
+}

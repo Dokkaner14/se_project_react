@@ -1,97 +1,75 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.header__left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.header__right {
-  display: flex;
-  gap: 16px;
-}
-.header__user-info {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  gap: 8px;
-  font-size: 20px;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   font-weight: 700;
-}
-.header__username {
-  margin-right: 0;
+  font-style: Bold;
   font-size: 20px;
-  gap: 8px;
-  font-weight: 500;
-}
-.header__add-clothes-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: 116px;
-  font-weight: 700;
-  font-size: 15px;
-  z-index: 10;
+
+  line-height: 24px;
+  letter-spacing: 0%;
+  max-width: 1360px;
+  display: flex;
+  background-color: #f3f3f3;
+  padding: 32px 0px 28px;
+  justify-content: center;
+  align-items: center;
   position: relative;
+}
+.header__add-btn {
+  margin-left: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.header__add-btn:hover {
+  border-bottom: 1px solid black;
+}
+
+.header__logo {
+  margin: 0 24px 0 0;
+  max-width: 89px;
+}
+.header__date-location {
+  margin: 0;
+}
+
+.header__avatar-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__avatar-name {
+  margin: 0 0 0 20px;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 768px) {
-  .header__left {
-    gap: 12px;
-  }
-
-  .header__right {
-    gap: 12px;
-  }
-
-  .header__user-info {
-    font-size: 18px;
-  }
-
-  .header__username {
-    font-size: 18px;
-  }
-
-  .header__add-clothes-btn {
-    width: 100px;
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 480px) {
   .header {
+    max-width: 350px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .header__left {
-    gap: 8px;
-  }
-
-  .header__right {
-    width: 100%;
     justify-content: space-between;
-    gap: 8px;
+    align-items: flex-start;
+    padding: 0;
+    margin-bottom: 16px;
   }
 
-  .header__user-info {
-    font-size: 16px;
+  .header__logo {
+    max-width: 89px;
+    margin-bottom: 32px;
   }
 
-  .header__username {
-    font-size: 16px;
+  .header__avatar-name {
+    display: none;
   }
 
-  .header__add-clothes-btn {
-    width: auto;
-    font-size: 14px;
+  .header__add-btn {
+    display: none;
+  }
+
+  .header__avatar-pic {
+    display: none;
   }
 }

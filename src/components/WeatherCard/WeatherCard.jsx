@@ -1,26 +1,34 @@
-import weatherImage from "../../assets/weather.png";
 import "./WeatherCard.css";
+import {
+  weatherDataOptions,
+  weatherOptionsDefault,
+} from "../../utils/constants";
 
-function WeatherCard({ weather }) {
-  const weatherClass = weather?.condition
-    ? `weather__card weather__card_${weather.condition}`
-    : "weather__card";
+function WeatherCard({ weatherData, handleTempUnit, currentTemperatureUnit }) {
+  const filteredWeatherOptions = weatherDataOptions.filter((option) => {
+    return (
+      option.isDay === weatherData.isDay &&
+      option.condition === weatherData.condition
+    );
+  });
+
+  let weatherOptions;
+
+  if (filteredWeatherOptions.length === 0) {
+    weatherOptions = weatherOptionsDefault[weatherData.isDay ? "day" : "night"];
+  } else {
+    weatherOptions = filteredWeatherOptions[0];
+  }
 
   return (
-    <section className={weatherClass} style={{ marginTop: "20px" }}>
-      <div className="weather__images">
-        <img
-          className="weather__card-img"
-          src={weatherImage}
-          alt="Weather background image"
-        />
-        <p className="weather__card-temp">
-          {weather?.temp !== undefined ? Math.round(weather.temp) : ""}°
-        </p>
-      </div>
-      <p className="weather__card-info">
-        Today is {weather?.temp !== undefined ? Math.round(weather.temp) : ""}°F
-        / You may want to wear:
+    <section className="weatherCard__container">
+      <img
+        className="weatherCard__img"
+        src={weatherOptions?.url}
+        alt={`displaying ${weatherOptions?.condition} at ${weatherOptions?.isDay ? "day" : "night"}`}
+      />
+      <p className="weatherCard__temp">
+        {handleTempUnit()}&deg;{currentTemperatureUnit}
       </p>
     </section>
   );

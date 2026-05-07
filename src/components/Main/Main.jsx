@@ -1,40 +1,50 @@
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import WeatherCard from "../WeatherCard/WeatherCard.jsx";
+import ItemCard from "../ItemCard/ItemCard.jsx";
 import "./Main.css";
-import ItemCard from "../ItemCard/ItemCard";
-import WeatherCard from "../WeatherCard/WeatherCard";
-import { getWeatherCondition } from "../../utils/weatherApi";
 
-function Main({ weather, clothingItems, onCardClick }) {
-  // wait until weather loads
-  if (!weather || weather.temp === undefined) {
-    return (
-      <main className="container">
-        <p>Loading...</p>
-      </main>
-    );
-  }
+function Main({ clothingItems, weatherData, handleCardClick }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
-  const weatherType = getWeatherCondition(weather.temp);
-
-  const filteredItems = clothingItems.filter((item) => {
-    return item.weather === weatherType;
-  });
+  const handleTempUnit = () => {
+    if (currentTemperatureUnit === "C") {
+      return weatherData.temp.C;
+    } else {
+      return weatherData.temp.F;
+    }
+  };
 
   return (
-    <main className="container">
-      <WeatherCard weather={weather} />
-
-      <ul className="main__items">
-        {filteredItems.length === 0 ? (
-          <li className="main__empty">No items for this weather</li>
-        ) : (
-          filteredItems.map((item) => (
-            <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
-          ))
-        )}
-      </ul>
+    <main className="main">
+      <WeatherCard
+        weatherData={weatherData}
+        handleTempUnit={handleTempUnit}
+        currentTemperatureUnit={currentTemperatureUnit}
+      />
+      <section className="cards">
+        <p className="cards__header">
+          Today is {handleTempUnit()}&deg;{currentTemperatureUnit} / you may
+          want to wear:
+        </p>
+        <ul className="cards__list">
+          {clothingItems
+            .filter((item) => {
+              return item.weather === weatherData.type;
+            })
+            .map((item) => {
+              return (
+                <ItemCard
+                  item={item}
+                  key={item._id}
+                  handleCardClick={handleCardClick}
+                />
+              );
+            })}
+        </ul>
+      </section>
     </main>
   );
 }
 
 export default Main;
-/* lines 11-15 says: Go through every clothing item and create an Itemcard for each one */

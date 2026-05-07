@@ -1,47 +1,51 @@
-import "./ModalWithForm.css";
+import "../ModalWithForm/ModalWithForm.css";
+import { useEffect } from "react";
 
 function ModalWithForm({
   children,
-  buttonText,
-  title,
-  name,
   isOpen,
   onClose,
-  isValid,
+  title,
+  buttonText,
   onSubmit,
 }) {
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleEscape(e) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  function handleCloseClick(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
   return (
-    <div className="modal modal_is-opened" onClick={onClose}>
-      <div
-        className="modal__content modal__content_type_image"
-        onClick={(evt) => evt.stopPropagation()}
-      >
+    <div
+      className={isOpen ? "modal" : "modal__hidden"}
+      onClick={handleCloseClick}
+    >
+      <form name="form" className="modal__form" onSubmit={onSubmit}>
+        <h2 className="modal__title">{title}</h2>
         <button
           type="button"
           className="modal__close-btn"
           onClick={onClose}
-          aria-label="Close"
-        >
-          ×
+        ></button>
+        {children}
+        <button type="submit" className="modal__submit-btn">
+          {buttonText}
         </button>
-        <h2 className="modal__title">{title} </h2>
-        <form className="modal__form" name={name} onSubmit={onSubmit}>
-          {children}
-          <button
-            type="submit"
-            className="modal__submit"
-            disabled={!isValid}
-            style={{
-              backgroundColor: isValid ? "#000" : "rgba(0, 0, 0, 0.3)",
-              color: "#fff",
-            }}
-          >
-            {" "}
-            {buttonText}
-          </button>
-        </form>
-      </div>
+      </form>
     </div>
   );
 }
