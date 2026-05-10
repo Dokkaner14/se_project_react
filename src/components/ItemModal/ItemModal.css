@@ -1,26 +1,121 @@
-@import "../ModalWithForm/ModalWithForm.css";
-
-.item-modal__footer {
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+  z-index: 1000;
 }
 
-.item-modal__text {
+.modal_opened {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal__content {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 90vh;
+  background-color: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
 }
 
-.item-modal__delete {
-  color: #ff4d00;
+.modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #222222;
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.modal__image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+.modal__content_type_image .modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.modal__footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #121212;
+}
+
+.modal__weather {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #4f4f4f;
+}
+
+.modal__delete-button {
+  color: #ff5a00;
   background: none;
   border: none;
-  cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  margin-top: 30px;
-  width: 98.12px;
-  height: 13.62px;
-  margin-right: 20px;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media screen and (max-width: 640px) {
+  .modal {
+    padding: 12px;
+  }
+
+  .modal__content {
+    border-radius: 24px;
+  }
+
+  .modal__close {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .modal__content_type_image .modal__footer {
+    padding: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modal__delete-button {
+    align-self: flex-end;
+  }
 }

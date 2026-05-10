@@ -1,17 +1,28 @@
+.sideBar {
+  width: 100%;
+  max-width: 260px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 32px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
 .sideBar__header {
   display: flex;
-  max-width: 230px;
-  justify-content: center;
   align-items: center;
+  gap: 16px;
 }
 
 .sideBar__avatar {
-  width: 50px;
-  height: 50px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  margin-right: 16px;
+  object-fit: cover;
 }
 
 .sideBar__avatar-name {
   margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
 }

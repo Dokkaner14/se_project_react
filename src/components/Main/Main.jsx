@@ -17,11 +17,7 @@ function Main({ clothingItems, weatherData, handleCardClick }) {
 
   return (
     <main className="main">
-      <WeatherCard
-        weatherData={weatherData}
-        handleTempUnit={handleTempUnit}
-        currentTemperatureUnit={currentTemperatureUnit}
-      />
+      <WeatherCard weatherData={weatherData} />
       <section className="cards">
         <p className="cards__header">
           Today is {handleTempUnit()}&deg;{currentTemperatureUnit} / you may
