@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
-const Logo = new URL("../../assets/logo.png", import.meta.url).href;
-const AvatarPic = new URL("../../assets/avatar.png", import.meta.url).href;
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({ openModal, weatherData }) {
@@ -13,24 +11,28 @@ function Header({ openModal, weatherData }) {
   return (
     <header className="header">
       <Link to="/">
-        <img className="header__logo" src={Logo} alt="WTWR LOGO" />
+        <img className="header__logo" src="/smaller-logo.png" alt="WTWR LOGO" />
       </Link>
-      <p className="header__date-location">
-        {currentDate}, {weatherData.city}
-      </p>
-      <ToggleSwitch />
-      <button className="header__add-btn" onClick={openModal}>
-        + Add clothes
-      </button>
-      <div className="header__avatar-section">
-        <p className="header__avatar-name">Joel Quinones</p>
-        <Link to="/profile">
-          <img
-            src={AvatarPic}
-            alt="user avatar photo"
-            className="header__avatar-pic"
-          />
-        </Link>
+      <div className="header__center">
+        <p className="header__date-location">
+          {currentDate}, {weatherData.city}
+        </p>
+        <ToggleSwitch />
+      </div>
+      <div className="header__right">
+        <button className="header__add-btn" onClick={openModal}>
+          + Add new
+        </button>
+        <div className="header__avatar-section">
+          <p className="header__avatar-name">Joel Quinones</p>
+          <Link to="/profile">
+            <img
+              src="/avatar.png"
+              alt="user avatar photo"
+              className="header__avatar-pic"
+            />
+          </Link>
+        </div>
       </div>
     </header>
   );

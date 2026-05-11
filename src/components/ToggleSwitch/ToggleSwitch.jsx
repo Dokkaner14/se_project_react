@@ -8,28 +8,20 @@ function ToggleSwitch() {
   );
 
   return (
-    <label className="switch__label" htmlFor="switch">
+    <label className="toggle-switch">
       <input
-        name="switch"
         type="checkbox"
-        id="switch"
-        className="switch__input"
+        className="toggle-switch__checkbox"
+        checked={currentTemperatureUnit === "C"}
         onChange={handleToggleSwitch}
       />
-      <span className="switch__circle"></span>
-      <span
-        className={`switch__letter switch__letter_F ${
-          currentTemperatureUnit === "F" ? "switch__letter_color" : ""
-        }`}
-      >
-        F
-      </span>
-      <span
-        className={`switch__letter switch__letter_C ${
-          currentTemperatureUnit === "C" ? "switch__letter_color" : ""
-        }`}
-      >
-        C
+      <span className="toggle-switch__slider">
+        <span className="toggle-switch__text toggle-switch__text_type_f">
+          F
+        </span>
+        <span className="toggle-switch__text toggle-switch__text_type_c">
+          C
+        </span>
       </span>
     </label>
   );
