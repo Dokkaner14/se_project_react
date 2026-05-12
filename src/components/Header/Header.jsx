@@ -19,8 +19,14 @@ function Header({ openModal, weatherData }) {
         </p>
         <ToggleSwitch />
       </div>
+
       <div className="header__right">
-        <button className="header__add-btn" onClick={openModal}>
+        <button
+          className="header__add-btn"
+          onClick={() => {
+            openModal("add-garment");
+          }}
+        >
           + Add new
         </button>
         <div className="header__avatar-section">
