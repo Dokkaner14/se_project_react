@@ -1,44 +1,15 @@
-import { useContext } from "react";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 import WeatherCard from "../WeatherCard/WeatherCard.jsx";
-import ItemCard from "../ItemCard/ItemCard.jsx";
-import "./Main.css";
+import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 
-function Main({ clothingItems, weatherData, handleCardClick }) {
-  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-
-  const handleTempUnit = () => {
-    if (currentTemperatureUnit === "C") {
-      return weatherData.temp.C;
-    } else {
-      return weatherData.temp.F;
-    }
-  };
-
+function Main({ weatherData, clothingItems, handleCardClick }) {
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
-      <section className="cards">
-        <p className="cards__header">
-          Today is {handleTempUnit()}&deg;{currentTemperatureUnit} / you may
-          want to wear:
-        </p>
-        <ul className="cards__list">
-          {clothingItems
-            .filter((item) => {
-              return item.weather === weatherData.type;
-            })
-            .map((item) => {
-              return (
-                <ItemCard
-                  item={item}
-                  key={item._id}
-                  handleCardClick={handleCardClick}
-                />
-              );
-            })}
-        </ul>
-      </section>
+      <ClothesSection
+        clothingItems={clothingItems}
+        handleCardClick={handleCardClick}
+        // Do NOT pass onCardDelete here (Main page shouldn't show delete)
+      />
     </main>
   );
 }

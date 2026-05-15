@@ -1,11 +1,10 @@
-import "../Profile/Profile.css";
-import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 import SideBar from "../SideBar/SideBar.jsx";
+import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 
-function Profile({ clothingItems, openModal, handleCardClick }) {
+function Profile({ clothingItems, openModal, handleCardClick, onCardDelete }) {
   return (
     <section className="profile">
-      <SideBar />
+      <SideBar openModal={openModal} />
 
       <div className="profile__content">
         <div className="profile__header">
@@ -13,7 +12,7 @@ function Profile({ clothingItems, openModal, handleCardClick }) {
           <button
             type="button"
             className="profile__add-btn"
-            onClick={openModal} // ← Already good, but make sure
+            onClick={openModal}
           >
             + Add new
           </button>
@@ -22,6 +21,7 @@ function Profile({ clothingItems, openModal, handleCardClick }) {
         <ClothesSection
           clothingItems={clothingItems}
           handleCardClick={handleCardClick}
+          onCardDelete={onCardDelete}
         />
       </div>
     </section>
