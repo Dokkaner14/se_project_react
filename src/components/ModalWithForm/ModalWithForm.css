@@ -59,6 +59,10 @@
   font-size: 16px;
 }
 
+.modal__hidden {
+  display: none;
+}
+
 /* form helpers (kept from yours, cleaned slightly) */
 
 .form__fieldset-info {

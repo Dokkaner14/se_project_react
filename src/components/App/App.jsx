@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -44,50 +44,68 @@ function App() {
     getClothingItems().then(setClothingItems).catch(console.error);
   }, []);
 
-  function handleToggleSwitch() {
-    setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
-  }
-
-  function openModal(modalName) {
+  const openModal = useCallback((modalName) => {
+    console.log("🔥 openModal called with:", modalName);
     setActiveModal(modalName);
-  }
+  }, []);
 
-  function closeModal() {
+  const closeModal = useCallback(() => {
+    console.log("Closing modal");
     setActiveModal("");
-  }
+  }, []);
 
-  function handleCardClick(card) {
-    setSelectedCard(card);
-    openModal(modals.preview);
-  }
+  // Debug: log whenever activeModal changes
+  useEffect(() => {
+    console.log("🟢 activeModal changed to:", activeModal);
+  }, [activeModal]);
 
-  function handleItemDeletion(itemId) {
-    removeItem(itemId)
-      .then(() => {
-        setClothingItems((prev) => prev.filter((item) => item._id !== itemId));
-        closeModal();
-      })
-      .catch(console.error);
-  }
+  const handleCardClick = useCallback(
+    (card) => {
+      setSelectedCard(card);
+      openModal(modals.preview);
+    },
+    [openModal, modals.preview],
+  );
 
-  function handleAddSubmit(formData) {
-    const itemData = {
-      name: formData.name,
-      imageUrl: formData.imageUrl,
-      weather: formData.weather,
-    };
+  const handleItemDeletion = useCallback(
+    (itemId) => {
+      removeItem(itemId)
+        .then(() => {
+          setClothingItems((prev) =>
+            prev.filter((item) => item._id !== itemId),
+          );
+          closeModal();
+        })
+        .catch(console.error);
+    },
+    [closeModal],
+  );
 
-    addItem(itemData)
-      .then((newItem) => {
-        setClothingItems((prev) => [newItem, ...prev]);
-        closeModal();
-      })
-      .catch(console.error);
-  }
+  const handleAddSubmit = useCallback(
+    (formData) => {
+      const itemData = {
+        name: formData.name,
+        imageUrl: formData.imageUrl,
+        weather: formData.weather,
+      };
+
+      addItem(itemData)
+        .then((newItem) => {
+          setClothingItems((prev) => [newItem, ...prev]);
+          closeModal();
+        })
+        .catch(console.error);
+    },
+    [closeModal],
+  );
 
   return (
     <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwitch }}
+      value={{
+        currentTemperatureUnit,
+        handleToggleSwitch: () =>
+          setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F")),
+      }}
     >
       <div className="page">
         <div className="page__content">

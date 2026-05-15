@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ openModal, weatherData }) {
+function Header({ weatherData, openModal }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -13,6 +13,7 @@ function Header({ openModal, weatherData }) {
       <Link to="/">
         <img className="header__logo" src="/smaller-logo.png" alt="WTWR LOGO" />
       </Link>
+
       <div className="header__center">
         <p className="header__date-location">
           {currentDate}, {weatherData.city}
@@ -21,14 +22,10 @@ function Header({ openModal, weatherData }) {
       </div>
 
       <div className="header__right">
-        <button
-          className="header__add-btn"
-          onClick={() => {
-            openModal("add-garment");
-          }}
-        >
+        <button className="header__add-btn" onClick={openModal}>
           + Add new
         </button>
+
         <div className="header__avatar-section">
           <p className="header__avatar-name">Joel Quinones</p>
           <Link to="/profile">

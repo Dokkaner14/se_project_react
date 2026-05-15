@@ -13,11 +13,12 @@ function Profile({ clothingItems, openModal, handleCardClick }) {
           <button
             type="button"
             className="profile__add-btn"
-            onClick={openModal}
+            onClick={openModal} // ← Already good, but make sure
           >
-            +Add new
+            + Add new
           </button>
         </div>
+
         <ClothesSection
           clothingItems={clothingItems}
           handleCardClick={handleCardClick}

@@ -1,51 +1,42 @@
-import "../ModalWithForm/ModalWithForm.css";
+import "./ModalWithForm.css";
 import { useEffect } from "react";
 
 function ModalWithForm({
+  title,
   children,
+  buttonText,
   isOpen,
   onClose,
-  title,
-  buttonText,
   onSubmit,
 }) {
+  // Close with Escape key
   useEffect(() => {
     if (!isOpen) return;
 
-    function handleEscape(e) {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
     };
+
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
-  function handleOverlayClick(e) {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  }
-
   return (
-    <div className="modal" onClick={handleOverlayClick}>
-      <form className="modal__form" onSubmit={onSubmit}>
+    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
+      <div className="modal__content">
+        <button className="modal__close" type="button" onClick={onClose}>
+          ×
+        </button>
+
         <h2 className="modal__title">{title}</h2>
 
-        <button type="button" className="modal__close-btn" onClick={onClose} />
-
-        {children}
-
-        <button type="submit" className="modal__submit-btn">
-          {buttonText}
-        </button>
-      </form>
+        <form className="modal__form" onSubmit={onSubmit}>
+          {children}
+          <button type="submit" className="modal__submit">
+            {buttonText}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
