@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import "./SideBar.css";
 
 function SideBar({ openModal }) {

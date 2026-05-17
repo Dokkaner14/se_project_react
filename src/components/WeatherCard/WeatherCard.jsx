@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
-import { weatherConditions } from "../../utils/constants.js";
+import {
+  weatherDataOptions,
+  weatherOptionsDefault,
+} from "../../utils/constants.js";
 import "./WeatherCard.css";
 
 function WeatherCard({ weatherData }) {
@@ -10,8 +13,24 @@ function WeatherCard({ weatherData }) {
   const unit = currentTemperatureUnit === "F" ? "°F" : "°C";
 
   const getWeatherImage = () => {
-    const condition = weatherData.condition?.toLowerCase() || "cloudy";
-    return weatherConditions[condition] || weatherConditions["cloudy"];
+    if (!weatherData.condition) {
+      return weatherData.isDay
+        ? weatherOptionsDefault.day.url
+        : weatherOptionsDefault.night.url;
+    }
+
+    const condition = weatherData.condition.toLowerCase();
+
+    const found = weatherDataOptions.find(
+      (item) =>
+        item.condition === condition && item.isDay === weatherData.isDay,
+    );
+
+    return found
+      ? found.url
+      : weatherData.isDay
+        ? weatherOptionsDefault.day.url
+        : weatherOptionsDefault.night.url;
   };
 
   return (

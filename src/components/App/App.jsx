@@ -31,6 +31,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
+  // Mock current user (required for ItemCard delete button)
   const currentUser = {
     _id: "user-1",
     name: "Joel Quinones",
@@ -59,47 +60,37 @@ function App() {
     setActiveModal("");
   }, []);
 
-  const handleCardClick = useCallback(
-    (card) => {
-      setSelectedCard(card);
-      openModal(modals.preview);
-    },
-    [openModal, modals.preview],
-  );
+  const handleCardClick = useCallback((card) => {
+    setSelectedCard(card);
+    openModal(modals.preview);
+  }, [openModal, modals.preview]);
 
-  const handleItemDeletion = useCallback(
-    (item) => {
-      removeItem(item._id)
-        .then(() => {
-          setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
-          closeModal();
-        })
-        .catch(console.error);
-    },
-    [closeModal],
-  );
+  const handleItemDeletion = useCallback((item) => {
+    removeItem(item._id)
+      .then(() => {
+        setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
+        closeModal();
+      })
+      .catch(console.error);
+  }, [closeModal]);
 
-  const handleAddSubmit = useCallback(
-    (formData) => {
-      const itemData = {
-        name: formData.name,
-        imageUrl: formData.imageUrl,
-        weather: formData.weather,
-      };
+  const handleAddSubmit = useCallback((formData) => {
+    const itemData = {
+      name: formData.name,
+      imageUrl: formData.imageUrl,
+      weather: formData.weather,
+    };
 
-      addItem(itemData)
-        .then((newItem) => {
-          setClothingItems((prev) => [newItem, ...prev]);
-          closeModal();
-        })
-        .catch(console.error);
-    },
-    [closeModal],
-  );
+    addItem(itemData)
+      .then((newItem) => {
+        setClothingItems((prev) => [newItem, ...prev]);
+        closeModal();
+      })
+      .catch(console.error);
+  }, [closeModal]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {" "}
       <CurrentTemperatureUnitContext.Provider
         value={{
           currentTemperatureUnit,
