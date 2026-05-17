@@ -1,7 +1,7 @@
 import SideBar from "../SideBar/SideBar.jsx";
 import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 
-function Profile({ clothingItems, openModal, handleCardClick, onCardDelete }) {
+function Profile({ clothingItems, openModal, handleCardClick }) {
   return (
     <section className="profile">
       <SideBar openModal={openModal} />
@@ -21,7 +21,6 @@ function Profile({ clothingItems, openModal, handleCardClick, onCardDelete }) {
         <ClothesSection
           clothingItems={clothingItems}
           handleCardClick={handleCardClick}
-          onCardDelete={onCardDelete}
         />
       </div>
     </section>

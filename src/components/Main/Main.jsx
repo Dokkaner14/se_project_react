@@ -8,7 +8,6 @@ function Main({ weatherData, clothingItems, handleCardClick }) {
       <ClothesSection
         clothingItems={clothingItems}
         handleCardClick={handleCardClick}
-        // Do NOT pass onCardDelete here (Main page shouldn't show delete)
       />
     </main>
   );

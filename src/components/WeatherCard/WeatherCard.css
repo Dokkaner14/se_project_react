@@ -6,30 +6,43 @@
   color: #fff;
   display: flex;
   align-items: center;
-  padding: 28px;
+  padding: 28px 32px;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .weather__info {
   z-index: 2;
+  position: relative;
 }
 
 .weather__temp {
   font-size: 72px;
   font-weight: 500;
   line-height: 1;
-  margin: 0;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .weather__city {
   font-size: 20px;
   font-weight: 500;
-  margin-top: 8px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.weather__condition {
-  font-size: 18px;
-  margin-top: 4px;
-  opacity: 0.95;
+@media screen and (max-width: 768px) {
+  .weather {
+    height: 240px;
+    padding: 20px;
+  }
+
+  .weather__temp {
+    font-size: 54px;
+  }
+
+  .weather__city {
+    font-size: 18px;
+  }
 }

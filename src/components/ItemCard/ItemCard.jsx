@@ -1,38 +1,15 @@
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import "./ItemCard.css";
 
-function ItemCard({ item, handleCardClick, onCardDelete }) {
-  const currentUser = useContext(CurrentUserContext);
-  const isOwn = item.owner === currentUser?._id;
-
-  const handleDeleteClick = (e) => {
-    e.stopPropagation(); // Prevent card click when deleting
-    onCardDelete(item);
-  };
-
+function ItemCard({ item, handleCardClick }) {
   return (
     <li className="card">
-      <div className="card__header">
-        <p className="card__title">{item.name}</p>
-
-        {/* Delete button only shows on Profile page for user's own items */}
-        {isOwn && (
-          <button
-            className="card__delete-btn"
-            type="button"
-            onClick={handleDeleteClick}
-            aria-label="Delete item"
-          />
-        )}
-      </div>
-
       <img
         src={item.imageUrl}
         alt={item.name}
         className="card__image"
         onClick={() => handleCardClick(item)}
       />
+      <p className="card__title">{item.name}</p>
     </li>
   );
 }
