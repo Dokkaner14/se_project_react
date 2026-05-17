@@ -1,44 +1,46 @@
-import { Link } from "react-router-dom";
 import "./Header.css";
+import avatar from "../../assets/avatar.png";
+import logo from "../../assets/smaller-logo.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 
-function Header({ weatherData, openModal }) {
+function Header({ onAddClick, city }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <header className="header">
-      <Link to="/">
-        <img className="header__logo" src="/smaller-logo.png" alt="WTWR LOGO" />
-      </Link>
-
-      <div className="header__center">
-        <p className="header__date-location">
-          {currentDate}, {weatherData.city}
-        </p>
-        <ToggleSwitch />
+      <div className="header__left">
+        <Link to="/">
+          <img src={logo} alt="WTWR app logo" className="smaller__logo" />
+        </Link>
+        <div className="main__left">
+          <p className="main__date-location">
+            {currentDate}
+            {city ? `, ${city}` : ""}
+          </p>
+        </div>
       </div>
-
       <div className="header__right">
-        <button className="header__add-btn" onClick={openModal}>
-          + Add new
+        <ToggleSwitch />
+        <button className="header__add-clothes-btn" onClick={onAddClick}>
+          + Add clothes
         </button>
 
-        <div className="header__avatar-section">
-          <p className="header__avatar-name">Joel Quinones</p>
-          <Link to="/profile">
-            <img
-              src="/avatar.png"
-              alt="user avatar photo"
-              className="header__avatar-pic"
-            />
-          </Link>
-        </div>
+        <Link to="/profile" className="header__user-info">
+          <p className="header__username">
+            {currentUser ? currentUser.name : ""}
+          </p>
+          <img className="header__avatar" src={avatar} alt="User avatar" />
+        </Link>
       </div>
     </header>
   );
 }
-
 export default Header;

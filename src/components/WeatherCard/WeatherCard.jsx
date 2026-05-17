@@ -1,41 +1,26 @@
-import { useContext } from "react";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import weatherImage from "../../assets/weather.png";
 import "./WeatherCard.css";
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-function WeatherCard({ weatherData }) {
+function WeatherCard({ weather }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-
-  const temp = weatherData.temp?.[currentTemperatureUnit] || 999;
-  const unit = currentTemperatureUnit === "F" ? "°F" : "°C";
-
-  // Simple fallback image logic for Sprint 11
-  const getWeatherImage = () => {
-    const condition = (weatherData.condition || "cloudy").toLowerCase();
-    const isDay = weatherData.isDay ?? true;
-
-    if (condition.includes("clear") || condition.includes("sun")) {
-      return isDay ? "/day/sunny.jpg" : "/night/clear.jpg";
-    }
-    if (condition.includes("cloud")) {
-      return isDay ? "/day/cloudy.jpg" : "/night/cloudy.jpg";
-    }
-    if (condition.includes("rain") || condition.includes("storm")) {
-      return isDay ? "/day/rain.jpg" : "/night/rain.jpg";
-    }
-    return isDay ? "/day/cloudy.jpg" : "/night/cloudy.jpg";
-  };
-
   return (
-    <section
-      className="weather"
-      style={{ backgroundImage: `url(${getWeatherImage()})` }}
-    >
-      <div className="weather__info">
-        <h2 className="weather__temp">
-          {temp} {unit}
-        </h2>
-        <p className="weather__city">{weatherData.city}</p>
+    <section className="weather__card" style={{ marginTop: "20px" }}>
+      <div className="weather__images">
+        <img
+          className="weather__card-img"
+          src={weatherImage}
+          alt="Weather backgound image"
+        />
+        <p className="weather__card-temp">
+          {weather?.temp?.[currentTemperatureUnit]}°
+        </p>
       </div>
+      <p className="weather__card-info">
+        Today is {weather?.temp?.[currentTemperatureUnit]}°
+        {currentTemperatureUnit} / You may want to wear:
+      </p>
     </section>
   );
 }
