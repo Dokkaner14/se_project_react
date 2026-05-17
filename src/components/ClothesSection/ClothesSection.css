@@ -3,10 +3,14 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
   padding: 0;
-  margin: 0;
+  margin: 40px 0 0 0;
   list-style: none;
 }
 
-.clothes-section__list li {
-  width: 100%;
+@media screen and (max-width: 768px) {
+  .clothes-section__list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
 }

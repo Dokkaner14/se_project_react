@@ -1,26 +1,27 @@
-import weatherImage from "../../assets/weather.png";
-import "./WeatherCard.css";
 import { useContext } from "react";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import "./WeatherCard.css";
 
-function WeatherCard({ weather }) {
+function WeatherCard({ weatherData }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+
+  const temp = weatherData.temp?.[currentTemperatureUnit] || "--";
+  const unit = currentTemperatureUnit === "F" ? "°F" : "°C";
+
   return (
-    <section className="weather__card" style={{ marginTop: "20px" }}>
-      <div className="weather__images">
-        <img
-          className="weather__card-img"
-          src={weatherImage}
-          alt="Weather backgound image"
-        />
-        <p className="weather__card-temp">
-          {weather?.temp?.[currentTemperatureUnit]}°
-        </p>
+    <section
+      className="weather"
+      style={{
+        backgroundImage: `url(${weatherData.isDay ? "/day/cloudy.jpg" : "/night/cloudy.jpg"})`,
+      }}
+    >
+      <div className="weather__info">
+        <h2 className="weather__temp">
+          {temp}
+          {unit}
+        </h2>
+        <p className="weather__city">{weatherData.city}</p>
       </div>
-      <p className="weather__card-info">
-        Today is {weather?.temp?.[currentTemperatureUnit]}°
-        {currentTemperatureUnit} / You may want to wear:
-      </p>
     </section>
   );
 }

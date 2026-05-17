@@ -1,37 +1,22 @@
 import "./ItemModal.css";
 
-function ItemModal({ card, onClose, onDelete }) {
-  if (!card) return null;
+function ItemModal({ isOpen, card, onClose }) {
+  if (!isOpen || !card) return null;
 
   return (
-    <div className="modal modal_is-opened" onClick={onClose}>
-      <div
-        className="modal__content modal__content_type_preview"
-        onClick={(evt) => evt.stopPropagation()}
-      >
-        <button
-          type="button"
-          className="modal__close-btn"
-          onClick={onClose}
-          aria-label="Close"
+    <div className={`item-modal ${isOpen ? "item-modal_opened" : ""}`}>
+      <div className="item-modal__content">
+        <button className="item-modal__close" type="button" onClick={onClose}>
+          ×
+        </button>
+
+        <img
+          src={card.imageUrl}
+          alt={card.name}
+          className="item-modal__image"
         />
 
-        <img src={card.link} alt={card.name} className="modal__preview-image" />
-
-        <div className="item-modal__footer">
-          <div className="item-modal__text">
-            <p className="modal__caption">{card.name}</p>
-            <p className="modal__weather">Weather: {card.weather}</p>
-          </div>
-
-          <button
-            type="button"
-            className="item-modal__delete"
-            onClick={() => onDelete(card)}
-          >
-            Delete item
-          </button>
-        </div>
+        <h2 className="item-modal__title">{card.name}</h2>
       </div>
     </div>
   );

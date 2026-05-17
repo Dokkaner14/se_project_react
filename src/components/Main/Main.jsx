@@ -1,30 +1,14 @@
-import "./Main.css";
-import ItemCard from "../ItemCard/ItemCard";
-import WeatherCard from "../WeatherCard/WeatherCard";
-import { useContext } from "react";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import WeatherCard from "../WeatherCard/WeatherCard.jsx";
+import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 
-function Main({ weather, clothingItems, onCardClick, onAddClick }) {
-  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  // wait until weather loads
-  if (!weather || !weather.temp) {
-    return (
-      <main className="container">
-        <p>Loading...</p>
-      </main>
-    );
-  }
-  console.log("clothingItems in Main:", clothingItems);
-
+function Main({ weatherData, clothingItems, handleCardClick }) {
   return (
-    <main className="container">
-      <WeatherCard weather={weather} />
-
-      <ul className="main__items">
-        {clothingItems?.map((item) => (
-          <ItemCard key={item.id} item={item} onCardClick={onCardClick} />
-        ))}
-      </ul>
+    <main className="main">
+      <WeatherCard weatherData={weatherData} />
+      <ClothesSection
+        clothingItems={clothingItems}
+        handleCardClick={handleCardClick}
+      />
     </main>
   );
 }
