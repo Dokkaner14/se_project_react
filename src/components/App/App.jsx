@@ -6,16 +6,14 @@ import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import Profile from "../Profile/Profile.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
-import DeleteModal from "../DeleteModal/DeleteModal.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 
 import { coordinates, apiKey } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
-import { getClothingItems, addItem, removeItem } from "../../utils/api.js";
+import { getClothingItems, addItem } from "../../utils/api.js";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
@@ -31,17 +29,9 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
-  // Mock current user (required for ItemCard delete button)
-  const currentUser = {
-    _id: "user-1",
-    name: "Joel Quinones",
-    avatar: "/avatar.png",
-  };
-
   const modals = {
     add: "add-garment",
     preview: "preview-card",
-    delete: "delete",
   };
 
   useEffect(() => {
@@ -60,101 +50,86 @@ function App() {
     setActiveModal("");
   }, []);
 
-  const handleCardClick = useCallback((card) => {
-    setSelectedCard(card);
-    openModal(modals.preview);
-  }, [openModal, modals.preview]);
+  const handleCardClick = useCallback(
+    (card) => {
+      setSelectedCard(card);
+      openModal(modals.preview);
+    },
+    [openModal, modals.preview],
+  );
 
-  const handleItemDeletion = useCallback((item) => {
-    removeItem(item._id)
-      .then(() => {
-        setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
-        closeModal();
-      })
-      .catch(console.error);
-  }, [closeModal]);
+  const handleAddSubmit = useCallback(
+    (formData) => {
+      const itemData = {
+        name: formData.name,
+        imageUrl: formData.imageUrl,
+        weather: formData.weather,
+      };
 
-  const handleAddSubmit = useCallback((formData) => {
-    const itemData = {
-      name: formData.name,
-      imageUrl: formData.imageUrl,
-      weather: formData.weather,
-    };
-
-    addItem(itemData)
-      .then((newItem) => {
-        setClothingItems((prev) => [newItem, ...prev]);
-        closeModal();
-      })
-      .catch(console.error);
-  }, [closeModal]);
+      addItem(itemData)
+        .then((newItem) => {
+          setClothingItems((prev) => [newItem, ...prev]);
+          closeModal();
+        })
+        .catch(console.error);
+    },
+    [closeModal],
+  );
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <CurrentTemperatureUnitContext.Provider
-        value={{
-          currentTemperatureUnit,
-          handleToggleSwitch: () =>
-            setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F")),
-        }}
-      >
-        <div className="page">
-          <div className="page__content">
-            <Header
-              weatherData={weatherData}
-              openModal={() => openModal(modals.add)}
+    <CurrentTemperatureUnitContext.Provider
+      value={{
+        currentTemperatureUnit,
+        handleToggleSwitch: () =>
+          setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F")),
+      }}
+    >
+      <div className="page">
+        <div className="page__content">
+          <Header
+            weatherData={weatherData}
+            openModal={() => openModal(modals.add)}
+          />
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  clothingItems={clothingItems}
+                  handleCardClick={handleCardClick}
+                />
+              }
             />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  clothingItems={clothingItems}
+                  openModal={() => openModal(modals.add)}
+                  handleCardClick={handleCardClick}
+                />
+              }
+            />
+          </Routes>
 
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    clothingItems={clothingItems}
-                    weatherData={weatherData}
-                    handleCardClick={handleCardClick}
-                  />
-                }
-              />
-
-              <Route
-                path="/profile"
-                element={
-                  <Profile
-                    clothingItems={clothingItems}
-                    openModal={() => openModal(modals.add)}
-                    handleCardClick={handleCardClick}
-                    onCardDelete={handleItemDeletion}
-                  />
-                }
-              />
-            </Routes>
-
-            <Footer />
-          </div>
-
-          <ItemModal
-            isOpen={activeModal === modals.preview}
-            card={selectedCard}
-            onClose={closeModal}
-            onDelete={handleItemDeletion}
-          />
-
-          <DeleteModal
-            isOpen={activeModal === modals.delete}
-            onClose={closeModal}
-            onDelete={handleItemDeletion}
-            card={selectedCard}
-          />
-
-          <AddItemModal
-            isOpen={activeModal === modals.add}
-            onCloseClick={closeModal}
-            onAddItemModalSubmit={handleAddSubmit}
-          />
+          <Footer />
         </div>
-      </CurrentTemperatureUnitContext.Provider>
-    </CurrentUserContext.Provider>
+
+        <ItemModal
+          isOpen={activeModal === modals.preview}
+          card={selectedCard}
+          onClose={closeModal}
+        />
+
+        <AddItemModal
+          isOpen={activeModal === modals.add}
+          onCloseClick={closeModal}
+          onAddItemModalSubmit={handleAddSubmit}
+        />
+      </div>
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 
