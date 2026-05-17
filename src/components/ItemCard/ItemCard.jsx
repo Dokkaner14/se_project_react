@@ -7,7 +7,7 @@ function ItemCard({ item, handleCardClick, onCardDelete }) {
   const isOwn = item.owner === currentUser?._id;
 
   const handleDeleteClick = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent card click when deleting
     onCardDelete(item);
   };
 
@@ -16,6 +16,7 @@ function ItemCard({ item, handleCardClick, onCardDelete }) {
       <div className="card__header">
         <p className="card__title">{item.name}</p>
 
+        {/* Delete button only shows on Profile page for user's own items */}
         {isOwn && (
           <button
             className="card__delete-btn"

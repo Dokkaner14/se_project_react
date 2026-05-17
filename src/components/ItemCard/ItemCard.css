@@ -17,6 +17,7 @@
   transform: translateY(-4px);
 }
 
+/* Header with title and delete button */
 .card__header {
   position: absolute;
   top: 16px;
@@ -43,6 +44,7 @@
   text-overflow: ellipsis;
 }
 
+/* Delete Button */
 .card__delete-btn {
   width: 40px;
   height: 40px;
@@ -51,13 +53,14 @@
   border: none;
   cursor: pointer;
   opacity: 0.85;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 .card__delete-btn:hover {
   opacity: 1;
 }
 
+/* Image */
 .card__image {
   width: 100%;
   height: 100%;
@@ -69,7 +72,7 @@
   transform: scale(1.05);
 }
 
-/* Responsive */
+/* Responsive Design */
 @media screen and (max-width: 768px) {
   .card {
     max-width: 162px;
@@ -85,5 +88,11 @@
     top: 8px;
     left: 8px;
     right: 8px;
+  }
+
+  .card__delete-btn {
+    width: 36px;
+    height: 36px;
+    background-size: 20px;
   }
 }
