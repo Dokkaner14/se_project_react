@@ -1,18 +1,27 @@
-import "../SideBar/SideBar.css";
-import AvatarPic from "../../assets/avatar.png";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import "./SideBar.css";
 
-function SideBar() {
+function SideBar({ openModal }) {
+  const currentUser = useContext(CurrentUserContext);
+
   return (
-    <aside className="sideBar">
-      <div className="sideBar__header">
+    <div className="sidebar">
+      <div className="sidebar__user">
         <img
-          src={AvatarPic}
-          alt="User profile picture"
-          className="sideBar__avatar"
+          src={currentUser?.avatar || "/avatar.png"}
+          alt="User avatar"
+          className="sidebar__avatar"
         />
-        <p className="sideBar__avatar-name">Terrence Tegegne</p>
+        <p className="sidebar__username">
+          {currentUser?.name || "Joel Quinones"}
+        </p>
       </div>
-    </aside>
+
+      <button type="button" className="sidebar__add-btn" onClick={openModal}>
+        + Add new
+      </button>
+    </div>
   );
 }
 

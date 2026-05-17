@@ -1,42 +1,30 @@
-import "./WeatherCard.css";
 import { useContext } from "react";
-import {
-  weatherDataOptions,
-  weatherOptionsDefault,
-} from "../../utils/constants";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import { weatherConditions } from "../../utils/constants.js";
+import "./WeatherCard.css";
 
 function WeatherCard({ weatherData }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
-  const filteredWeatherOptions = weatherDataOptions.filter((option) => {
-    return (
-      option.isDay === weatherData.isDay &&
-      option.condition === weatherData.condition
-    );
-  });
+  const temp = weatherData.temp[currentTemperatureUnit];
+  const unit = currentTemperatureUnit === "F" ? "°F" : "°C";
 
-  let weatherOptions;
-
-  if (filteredWeatherOptions.length === 0) {
-    weatherOptions = weatherOptionsDefault[weatherData.isDay ? "day" : "night"];
-  } else {
-    weatherOptions = filteredWeatherOptions[0];
-  }
-
-  const temperature =
-    currentTemperatureUnit === "C" ? weatherData.temp.C : weatherData.temp.F;
+  const getWeatherImage = () => {
+    const condition = weatherData.condition?.toLowerCase() || "cloudy";
+    return weatherConditions[condition] || weatherConditions["cloudy"];
+  };
 
   return (
-    <section className="weatherCard__container">
-      <img
-        className="weatherCard__img"
-        src={weatherOptions?.url}
-        alt={`displaying ${weatherOptions?.condition} at ${weatherOptions?.isDay ? "day" : "night"}`}
-      />
-      <p className="weatherCard__temp">
-        {temperature}&deg;{currentTemperatureUnit}
-      </p>
+    <section
+      className="weather"
+      style={{ backgroundImage: `url(${getWeatherImage()})` }}
+    >
+      <div className="weather__info">
+        <h2 className="weather__temp">
+          {temp} {unit}
+        </h2>
+        <p className="weather__city">{weatherData.city}</p>
+      </div>
     </section>
   );
 }
