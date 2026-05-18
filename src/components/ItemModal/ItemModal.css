@@ -11,6 +11,23 @@
   z-index: 1000;
 }
 
+.item-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.item-modal__delete-btn {
+  background: none;
+  border: none;
+  color: #f00;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
 .item-modal_opened {
   display: flex;
 }

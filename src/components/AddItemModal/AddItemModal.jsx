@@ -14,14 +14,15 @@ export default function AddItemModal({
     weather: "",
   });
 
-  const handleSubmit = (e) => {
+  // Pass resetForm to App so it can call it only after a successful API response
+  function handleSubmit(e) {
     e.preventDefault();
-    onAddItemModalSubmit(values);
-    resetForm();
-  };
+    onAddItemModalSubmit(values, resetForm);
+  }
 
+  // Also reset if the modal is closed without submitting
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) {
       resetForm();
     }
   }, [isOpen]);

@@ -1,46 +1,60 @@
 import "./Header.css";
-import avatar from "../../assets/avatar.png";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/smaller-logo.png";
+import avatar from "../../assets/avatar.png";
+import menuIcon from "../../assets/menu.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
 
-function Header({ onAddClick, city }) {
+function Header({ handleAddClick, handleMenuClick, weatherData }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
-  const currentUser = useContext(CurrentUserContext);
+  const username = "Terrence Tegegne";
 
   return (
     <header className="header">
-      <div className="header__left">
-        <Link to="/">
-          <img src={logo} alt="WTWR app logo" className="smaller__logo" />
-        </Link>
-        <div className="main__left">
-          <p className="main__date-location">
-            {currentDate}
-            {city ? `, ${city}` : ""}
-          </p>
-        </div>
-      </div>
-      <div className="header__right">
-        <ToggleSwitch />
-        <button className="header__add-clothes-btn" onClick={onAddClick}>
-          + Add clothes
-        </button>
+      <NavLink className="header__logo-link" to="/">
+        <img className="header__logo" src={logo} alt="WTWR logo" />
+      </NavLink>
+      <p className="header__date-and-location">
+        {currentDate}, {weatherData.city}
+      </p>
 
-        <Link to="/profile" className="header__user-info">
-          <p className="header__username">
-            {currentUser ? currentUser.name : ""}
-          </p>
-          <img className="header__avatar" src={avatar} alt="User avatar" />
-        </Link>
-      </div>
+      <ToggleSwitch />
+
+      <button
+        onClick={handleAddClick}
+        type="button"
+        className="header__add-clothes-btn"
+      >
+        + Add clothes
+      </button>
+
+      <NavLink className="header__nav-link" to="/profile">
+        <div className="header__user-container">
+          <div className="header__user-name">{username}</div>
+
+          {avatar ? (
+            <img className="header__avatar" src={avatar} alt="user avatar" />
+          ) : (
+            <span className="header__avatar">
+              {username?.toUpperCase().charAt(0) || ""}
+            </span>
+          )}
+        </div>
+      </NavLink>
+
+      <button
+        onClick={handleMenuClick}
+        type="button"
+        className="header__menu-btn"
+      >
+        <img src={menuIcon} alt="Open menu" className="header__menu-icon" />
+      </button>
     </header>
   );
 }
+
 export default Header;

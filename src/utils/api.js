@@ -11,7 +11,7 @@ export function handleServerResponse(res) {
   }
 }
 
-export function getClothingItems() {
+export function getItems() {
   return fetch(`${baseUrl}/items`).then((res) => {
     return handleServerResponse(res);
   });

@@ -1,30 +1,20 @@
-import SideBar from "../SideBar/SideBar.jsx";
-import ClothesSection from "../ClothesSection/ClothesSection.jsx";
+import "./Profile.css";
+import ClothesSection from "../ClothesSection/ClothesSection";
+import SideBar from "../SideBar/SideBar";
 
-function Profile({ clothingItems, openModal, handleCardClick }) {
+export default function Profile({
+  clothingItems,
+  handleCardClick,
+  handleAddClick,
+}) {
   return (
     <section className="profile">
-      <SideBar openModal={openModal} />
-
-      <div className="profile__content">
-        <div className="profile__header">
-          <p className="profile__header-title">Your items</p>
-          <button
-            type="button"
-            className="profile__add-btn"
-            onClick={openModal}
-          >
-            + Add new
-          </button>
-        </div>
-
-        <ClothesSection
-          clothingItems={clothingItems}
-          handleCardClick={handleCardClick}
-        />
-      </div>
+      <SideBar />
+      <ClothesSection
+        handleCardClick={handleCardClick}
+        clothingItems={clothingItems}
+        handleAddClick={handleAddClick}
+      />
     </section>
   );
 }
-
-export default Profile;

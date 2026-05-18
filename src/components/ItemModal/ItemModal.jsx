@@ -1,6 +1,6 @@
 import "./ItemModal.css";
 
-function ItemModal({ isOpen, card, onClose }) {
+function ItemModal({ isOpen, card, onClose, onDeleteClick }) {
   if (!isOpen || !card) return null;
 
   return (
@@ -16,7 +16,16 @@ function ItemModal({ isOpen, card, onClose }) {
           className="item-modal__image"
         />
 
-        <h2 className="item-modal__title">{card.name}</h2>
+        <div className="item-modal__footer">
+          <h2 className="item-modal__title">{card.name}</h2>
+          <button
+            type="button"
+            className="item-modal__delete-btn"
+            onClick={() => onDeleteClick(card)}
+          >
+            Delete item
+          </button>
+        </div>
       </div>
     </div>
   );

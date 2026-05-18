@@ -1,21 +1,24 @@
-import ItemCard from "../ItemCard/ItemCard.jsx";
 import "./ClothesSection.css";
+import ItemCard from "../ItemCard/ItemCard";
 
-function ClothesSection({ clothingItems, handleCardClick }) {
+export default function ClothesSection({
+  clothingItems,
+  handleCardClick,
+  handleAddClick,
+}) {
   return (
-    <section className="clothes-section">
-      <h2 className="clothes-section__title">Your items</h2>
-      <ul className="clothes-section__list">
+    <div className="clothes-section">
+      <div className="clothes-section__row">
+        <section className="clothes-section__text">Your items</section>
+        <button className="clothes-section__btn" onClick={handleAddClick}>
+          + Add new{" "}
+        </button>
+      </div>
+      <ul className="clothes-section__items">
         {clothingItems.map((item) => (
-          <ItemCard
-            key={item._id}
-            item={item}
-            handleCardClick={handleCardClick}
-          />
+          <ItemCard key={item._id} item={item} onCardClick={handleCardClick} />
         ))}
       </ul>
-    </section>
+    </div>
   );
 }
-
-export default ClothesSection;

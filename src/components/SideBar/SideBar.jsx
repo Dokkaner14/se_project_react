@@ -1,18 +1,21 @@
 import "./SideBar.css";
+import avatar from "../../assets/avatar.png";
 
-function SideBar({ openModal }) {
+export default function SideBar() {
+  const username = "Terrence Tegegne";
   return (
-    <div className="sidebar">
-      <div className="sidebar__user">
-        <img src="/avatar.png" alt="User avatar" className="sidebar__avatar" />
-        <p className="sidebar__username">Joel Quinones</p>
-      </div>
+    <aside className="sidebar">
+      <div className="sidebar__user-container">
+        {avatar ? (
+          <img className="sidebar__avatar" src={avatar} alt="user avatar" />
+        ) : (
+          <span className="sidebar__avatar">
+            {username?.toUpperCase().charAt(0) || ""}
+          </span>
+        )}
 
-      <button type="button" className="sidebar__add-btn" onClick={openModal}>
-        + Add new
-      </button>
-    </div>
+        <div className="sidebar__user-name">{username}</div>
+      </div>
+    </aside>
   );
 }
-
-export default SideBar;

@@ -1,45 +1,39 @@
-.weather {
+.weather-card {
   position: relative;
-  height: 300px;
-  border-radius: 20px;
-  overflow: hidden;
-  color: #fff;
   display: flex;
-  align-items: center;
-  padding: 28px 32px;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 80px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.weather__info {
-  z-index: 2;
-}
-
-.weather__temp {
-  font-size: 72px;
-  font-weight: 500;
-  line-height: 1;
-  margin: 0 0 8px 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.weather__city {
-  font-size: 20px;
-  font-weight: 500;
+.weather-card__temp {
+  color: #ffffff;
+  font: 700 36px/40px "Cabinet Grotesk";
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 1;
 }
 
-@media screen and (max-width: 768px) {
-  .weather {
-    height: 240px;
-    padding: 20px;
+.weather-card__image {
+  object-fit: contain;
+  object-position: right top;
+  width: 100%;
+}
+
+@media screen and (max-width: 627px) {
+  .weather-card {
+    height: 80px;
+    border-radius: 12px;
+    margin-bottom: 32px;
   }
-  .weather__temp {
-    font-size: 54px;
-  }
-  .weather__city {
-    font-size: 18px;
+
+  .weather-card__temp {
+    font-size: 36px;
+    line-height: 40px;
+    top: 20px;
+    left: 16px;
   }
 }
