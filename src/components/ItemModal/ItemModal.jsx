@@ -17,7 +17,10 @@ function ItemModal({ isOpen, card, onClose, onDeleteClick }) {
         />
 
         <div className="item-modal__footer">
+           <div className="item-modal__info">
           <h2 className="item-modal__title">{card.name}</h2>
+          <p className="item-modal__weather">Weather: {card.weather}</p>
+        </div>
           <button
             type="button"
             className="item-modal__delete-btn"

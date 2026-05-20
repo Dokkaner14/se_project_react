@@ -5,18 +5,24 @@ export default function ClothesSection({
   clothingItems,
   handleCardClick,
   handleAddClick,
+  title,
+  showAddButton = false,
 }) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__row">
-        <section className="clothes-section__text">Your items</section>
-        <button className="clothes-section__btn" onClick={handleAddClick}>
-          + Add new{" "}
-        </button>
+        <section className="clothes-section__text">{title}</section>
+
+        {showAddButton && (
+          <button className="clothes-section__btn" onClick={handleAddClick}>
+            + Add new
+          </button>
+        )}
       </div>
+
       <ul className="clothes-section__items">
         {clothingItems.map((item) => (
-          <ItemCard key={item._id} item={item} onCardClick={handleCardClick} />
+          <ItemCard key={item.id} item={item} onCardClick={handleCardClick} />
         ))}
       </ul>
     </div>

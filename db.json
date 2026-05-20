@@ -1,51 +1,39 @@
 {
   "items": [
     {
-      "_id": "1",
+      "id": "1",
       "name": "Light Tee",
-      "imageUrl": "https://via.placeholder.com/320x240?text=Light+Tee",
+      "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=320&q=80",
       "weather": "warm"
     },
     {
-      "_id": "2",
-      "name": "Rain Jacket",
-      "imageUrl": "https://via.placeholder.com/320x240?text=Rain+Jacket",
-      "weather": "cold"
-    },
-    {
-      "_id": "3",
+      "id": "3",
       "name": "Shorts",
-      "imageUrl": "https://via.placeholder.com/320x240?text=Shorts",
+      "imageUrl": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=320&q=80",
       "weather": "hot"
     },
     {
-      "name": "rain jacket",
-      "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91RqRe4Ie3L._AC_UL1500_.jpg",
-      "weather": "cold",
-      "_id": "p_rP0XB"
-    },
-    {
-      "name": "",
-      "imageUrl": "",
-      "weather": "hot",
-      "_id": "5VZQ5YH"
+      "name": "Hat",
+      "imageUrl": "https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=320&q=80",
+      "id": "0TCCcRRAzDs"
     }
   ],
   "posts": [
     {
-      "id": 1,
+      "id": "1",
       "title": "json-server",
       "author": "typicode"
     }
   ],
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "body": "some comment",
       "postId": 1
     }
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "$schema": "./node_modules/json-server/schema.json"
 }

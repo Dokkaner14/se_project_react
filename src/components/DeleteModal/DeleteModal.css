@@ -7,7 +7,8 @@
 }
 
 .modal__delete-content {
-  max-width: 670px;
+  width: 670px;
+  height: 280px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -20,6 +21,8 @@
   font-size: 20px;
   line-height: 24px;
   text-align: center;
+  box-sizing: border-box;
+  background-color: yellow;
 }
 
 .modal__delete-buttons {

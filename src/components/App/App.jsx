@@ -42,7 +42,7 @@ function App() {
       _id: Date.now(),
       name: inputValues.name,
       imageUrl: inputValues.imageUrl,
-      weather: inputValues.weatherType,
+      weather: inputValues.weather,
     };
 
     addItem(newCardData)
@@ -59,10 +59,10 @@ function App() {
   };
 
   const handleConfirmDelete = () => {
-    removeItem(selectedCard._id)
+    removeItem(selectedCard.id)
       .then(() => {
         setClothingItems((items) =>
-          items.filter((item) => item._id !== selectedCard._id),
+          items.filter((item) => item.id !== selectedCard.id),
         );
         closeActiveModal();
       })
@@ -70,8 +70,9 @@ function App() {
   };
 
   const handleAddClick = () => {
-    setActiveModal("add-garment");
-  };
+  console.log("handleAddClick fired");
+  setActiveModal("add-garment");
+};
 
   const handleMenuClick = () => {
     setActiveModal("mobile-menu");
@@ -141,10 +142,10 @@ function App() {
         )}
         {activeModal === "preview" && (
           <ItemModal
-            activeModal={activeModal}
+            isOpen={activeModal === "preview"}
             card={selectedCard}
             onClose={closeActiveModal}
-            onDeleteItem={handleDeleteItem}
+            onDeleteClick={handleDeleteItem}
           />
         )}
 

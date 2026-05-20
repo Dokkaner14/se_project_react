@@ -14,6 +14,8 @@ export default function Profile({
         handleCardClick={handleCardClick}
         clothingItems={clothingItems}
         handleAddClick={handleAddClick}
+        title="Your items"
+        showAddButton={true}
       />
     </section>
   );

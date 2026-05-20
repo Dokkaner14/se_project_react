@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
 
 export default function AddItemModal({
-  onCloseClick,
+  onCloseModal,
   isOpen,
-  onAddItemModalSubmit,
+  onAddItem,
 }) {
   const { values, handleChange, resetForm } = useForm({
     name: "",
@@ -17,7 +17,7 @@ export default function AddItemModal({
   // Pass resetForm to App so it can call it only after a successful API response
   function handleSubmit(e) {
     e.preventDefault();
-    onAddItemModalSubmit(values, resetForm);
+    onAddItem(values, resetForm);
   }
 
   // Also reset if the modal is closed without submitting
@@ -32,7 +32,7 @@ export default function AddItemModal({
       title="New Garment"
       buttonText="Add Garment"
       isOpen={isOpen}
-      onClose={onCloseClick}
+      onClose={onCloseModal}
       onSubmit={handleSubmit}
     >
       <label className="modal__label">

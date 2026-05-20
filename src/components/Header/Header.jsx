@@ -25,7 +25,10 @@ function Header({ handleAddClick, handleMenuClick, weatherData }) {
       <ToggleSwitch />
 
       <button
-        onClick={handleAddClick}
+        onClick={() => {
+          console.log("add button clicked");
+          handleAddClick();
+        }}
         type="button"
         className="header__add-clothes-btn"
       >
