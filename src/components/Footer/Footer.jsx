@@ -3,7 +3,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="footer">
-      <p>© 2026 Weather App</p>
+      <p>© {new Date().getFullYear()} Weather App</p>
     </footer>
   );
 }

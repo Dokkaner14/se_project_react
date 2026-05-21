@@ -22,7 +22,7 @@ export default function ClothesSection({
 
       <ul className="clothes-section__items">
         {clothingItems.map((item) => (
-          <ItemCard key={item.id} item={item} onCardClick={handleCardClick} />
+          <ItemCard key={item._id} item={item} onCardClick={handleCardClick} />
         ))}
       </ul>
     </div>

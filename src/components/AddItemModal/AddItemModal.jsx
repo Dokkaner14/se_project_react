@@ -1,13 +1,8 @@
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
 
-export default function AddItemModal({
-  onCloseModal,
-  isOpen,
-  onAddItem,
-}) {
+export default function AddItemModal({ onCloseModal, isOpen, onAddItem }) {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     imageUrl: "",
@@ -19,13 +14,6 @@ export default function AddItemModal({
     e.preventDefault();
     onAddItem(values, resetForm);
   }
-
-  // Also reset if the modal is closed without submitting
-  useEffect(() => {
-    if (!isOpen) {
-      resetForm();
-    }
-  }, [isOpen]);
 
   return (
     <ModalWithForm

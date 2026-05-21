@@ -19,7 +19,7 @@ function WeatherCard({ weatherData }) {
       </p>
 
       <img
-        src={weatherOption}
+        src={weatherOption.url}
         alt={weatherData.condition}
         className="weather-card__image"
       />

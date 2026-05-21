@@ -59,7 +59,7 @@ function App() {
   };
 
   const handleConfirmDelete = () => {
-    removeItem(selectedCard.id)
+    removeItem(selectedCard._id)
       .then(() => {
         setClothingItems((items) =>
           items.filter((item) => item.id !== selectedCard.id),
@@ -70,9 +70,9 @@ function App() {
   };
 
   const handleAddClick = () => {
-  console.log("handleAddClick fired");
-  setActiveModal("add-garment");
-};
+    console.log("handleAddClick fired");
+    setActiveModal("add-garment");
+  };
 
   const handleMenuClick = () => {
     setActiveModal("mobile-menu");
@@ -95,6 +95,17 @@ function App() {
         setClothingItems([...data].reverse());
       })
       .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
   return (
