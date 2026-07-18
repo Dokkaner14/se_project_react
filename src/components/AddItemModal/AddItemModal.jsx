@@ -9,7 +9,6 @@ export default function AddItemModal({ onCloseModal, isOpen, onAddItem }) {
     weather: "",
   });
 
-  // Pass resetForm to App so it can call it only after a successful API response
   function handleSubmit(e) {
     e.preventDefault();
     onAddItem(values, resetForm);

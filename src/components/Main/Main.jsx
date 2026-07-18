@@ -4,7 +4,7 @@ import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import "../Main/Main.css";
 
-function Main({ weatherData, clothingItems, handleCardClick }) {
+function Main({ weatherData, clothingItems, handleCardClick, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   return (
@@ -14,6 +14,7 @@ function Main({ weatherData, clothingItems, handleCardClick }) {
       <ClothesSection
         clothingItems={clothingItems}
         handleCardClick={handleCardClick}
+        onCardLike={onCardLike}
         title={`Today is ${weatherData.temp[currentTemperatureUnit]}°${currentTemperatureUnit} / You may want to wear:`}
       />
     </main>

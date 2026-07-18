@@ -1,7 +1,16 @@
 const baseUrl = "http://localhost:3001";
-const headers = {
+const defaultHeaders = {
   "Content-Type": "application/json",
 };
+
+function getHeaders(withAuth = false) {
+  const headers = { ...defaultHeaders };
+  if (withAuth) {
+    const token = localStorage.getItem("jwt");
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+  }
+  return headers;
+}
 
 export function handleServerResponse(res) {
   if (res.ok) {
@@ -20,7 +29,7 @@ export function getItems() {
 export function addItem({ name, imageUrl, weather }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
-    headers,
+    headers: getHeaders(true),
     body: JSON.stringify({ name, imageUrl, weather }),
   }).then((res) => {
     return handleServerResponse(res);
@@ -30,6 +39,40 @@ export function addItem({ name, imageUrl, weather }) {
 export function removeItem(itemId) {
   return fetch(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
-    headers: headers,
+    headers: getHeaders(true),
+  }).then((res) => handleServerResponse(res));
+}
+
+export function updateUserProfile({ name, avatar }, token) {
+  const headers = { ...defaultHeaders };
+  const authToken = token || localStorage.getItem("jwt");
+  if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify({ name, avatar }),
+  }).then((res) => handleServerResponse(res));
+}
+
+export function addCardLike(id, token) {
+  const headers = { ...defaultHeaders };
+  const authToken = token || localStorage.getItem("jwt");
+  if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers,
+  }).then((res) => handleServerResponse(res));
+}
+
+export function removeCardLike(id, token) {
+  const headers = { ...defaultHeaders };
+  const authToken = token || localStorage.getItem("jwt");
+  if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers,
   }).then((res) => handleServerResponse(res));
 }

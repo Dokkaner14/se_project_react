@@ -1,17 +1,28 @@
 import "./Header.css";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/smaller-logo.png";
-import avatar from "../../assets/avatar.png";
 import menuIcon from "../../assets/menu.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Header({ handleAddClick, handleMenuClick, weatherData }) {
+function Header({
+  handleAddClick,
+  handleMenuClick,
+  weatherData,
+  openLogin,
+  openRegister,
+  openEditProfile,
+  handleSignOut,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
-  const username = "Terrence Tegegne";
+  const currentUser = useContext(CurrentUserContext);
+  const username = currentUser?.name || "Guest";
+  const avatarUrl = currentUser?.avatar || null;
 
   return (
     <header className="header">
@@ -24,30 +35,64 @@ function Header({ handleAddClick, handleMenuClick, weatherData }) {
 
       <ToggleSwitch />
 
-      <button
-        onClick={() => {
-          console.log("add button clicked");
-          handleAddClick();
-        }}
-        type="button"
-        className="header__add-clothes-btn"
-      >
-        + Add clothes
-      </button>
+      {currentUser && (
+        <button
+          onClick={() => {
+            console.log("add button clicked");
+            handleAddClick();
+          }}
+          type="button"
+          className="header__add-clothes-btn"
+        >
+          + Add clothes
+        </button>
+      )}
 
-      <NavLink className="header__nav-link" to="/profile">
-        <div className="header__user-container">
-          <div className="header__user-name">{username}</div>
+      {currentUser ? (
+        <NavLink className="header__nav-link" to="/profile">
+          <div className="header__user-container">
+            <div className="header__user-name">{username}</div>
+            <button
+              type="button"
+              className="header__edit-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                if (openEditProfile) openEditProfile();
+              }}
+            >
+              Edit
+            </button>
 
-          {avatar ? (
-            <img className="header__avatar" src={avatar} alt="user avatar" />
-          ) : (
-            <span className="header__avatar">
-              {username?.toUpperCase().charAt(0) || ""}
-            </span>
-          )}
+            {avatarUrl ? (
+              <img
+                className="header__avatar"
+                src={avatarUrl}
+                alt="user avatar"
+              />
+            ) : (
+              <span className="header__avatar">
+                {username?.toUpperCase().charAt(0) || ""}
+              </span>
+            )}
+          </div>
+        </NavLink>
+        <button
+          type="button"
+          className="header__signout-btn"
+          onClick={() => handleSignOut && handleSignOut()}
+        >
+          Sign out
+        </button>
+      ) : (
+        <div className="header__auth">
+          <button className="header__auth-btn" onClick={openLogin}>
+            Sign in
+          </button>
+          <button className="header__auth-btn" onClick={openRegister}>
+            Register
+          </button>
         </div>
-      </NavLink>
+      )}
 
       <button
         onClick={handleMenuClick}
