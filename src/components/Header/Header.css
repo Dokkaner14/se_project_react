@@ -43,6 +43,26 @@
   display: block;
 }
 
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: 16px;
+}
+
+.header__auth-btn {
+  border: none;
+  background: transparent;
+  font: 700 18px/22px "Cabinet Grotesk";
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+}
+
+.header__auth-btn:hover {
+  opacity: 0.8;
+}
+
 .header__menu-btn {
   display: none;
   border: none;

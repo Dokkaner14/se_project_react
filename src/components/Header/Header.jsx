@@ -49,47 +49,49 @@ function Header({
       )}
 
       {currentUser ? (
-        <NavLink className="header__nav-link" to="/profile">
-          <div className="header__user-container">
-            <div className="header__user-name">{username}</div>
-            <button
-              type="button"
-              className="header__edit-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                if (openEditProfile) openEditProfile();
-              }}
-            >
-              Edit
-            </button>
+        <>
+          <NavLink className="header__nav-link" to="/profile">
+            <div className="header__user-container">
+              <div className="header__user-name">{username}</div>
+              <button
+                type="button"
+                className="header__edit-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (openEditProfile) openEditProfile();
+                }}
+              >
+                Edit
+              </button>
 
-            {avatarUrl ? (
-              <img
-                className="header__avatar"
-                src={avatarUrl}
-                alt="user avatar"
-              />
-            ) : (
-              <span className="header__avatar">
-                {username?.toUpperCase().charAt(0) || ""}
-              </span>
-            )}
-          </div>
-        </NavLink>
-        <button
-          type="button"
-          className="header__signout-btn"
-          onClick={() => handleSignOut && handleSignOut()}
-        >
-          Sign out
-        </button>
+              {avatarUrl ? (
+                <img
+                  className="header__avatar"
+                  src={avatarUrl}
+                  alt="user avatar"
+                />
+              ) : (
+                <span className="header__avatar">
+                  {username?.toUpperCase().charAt(0) || ""}
+                </span>
+              )}
+            </div>
+          </NavLink>
+          <button
+            type="button"
+            className="header__signout-btn"
+            onClick={() => handleSignOut && handleSignOut()}
+          >
+            Sign out
+          </button>
+        </>
       ) : (
         <div className="header__auth">
-          <button className="header__auth-btn" onClick={openLogin}>
-            Sign in
-          </button>
           <button className="header__auth-btn" onClick={openRegister}>
-            Register
+            Sign Up
+          </button>
+          <button className="header__auth-btn" onClick={openLogin}>
+            Log In
           </button>
         </div>
       )}

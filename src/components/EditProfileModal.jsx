@@ -1,8 +1,7 @@
 import ModalWithForm from "./ModalWithForm/ModalWithForm";
 import useForm from "../hooks/useForm";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
-import { useContext } from "react";
 
 export default function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
@@ -25,7 +24,7 @@ export default function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
   function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    onUpdateUser(values, resetForm)
+    return onUpdateUser(values, resetForm)
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }
