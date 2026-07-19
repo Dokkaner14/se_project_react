@@ -17,14 +17,18 @@ export default function ClothesSection({
   const itemsToShow =
     showOnlyByUser && currentUser
       ? clothingItems.filter((item) => item.owner === currentUser._id)
-      : clothingItems;
+      : showOnlyByUser && !currentUser
+        ? []
+        : clothingItems;
+
+  const canShowAdd = showAddButton && currentUser;
 
   return (
     <div className="clothes-section">
       <div className="clothes-section__row">
         <section className="clothes-section__text">{title}</section>
 
-        {showAddButton && (
+        {canShowAdd && (
           <button className="clothes-section__btn" onClick={handleAddClick}>
             + Add new
           </button>

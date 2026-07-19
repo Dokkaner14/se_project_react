@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -44,6 +44,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -79,7 +80,7 @@ function App() {
     removeItem(selectedCard._id)
       .then(() => {
         setClothingItems((items) =>
-          items.filter((item) => item.id !== selectedCard.id),
+          items.filter((item) => item._id !== selectedCard._id),
         );
         closeActiveModal();
       })
@@ -110,8 +111,8 @@ function App() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
-    // close any open modal
     closeActiveModal();
+    navigate("/");
   }
 
   useEffect(() => {
@@ -174,6 +175,7 @@ function App() {
         setCurrentUser(user);
         resetForm();
         closeRegister();
+        navigate("/");
       })
       .catch((err) => {
         console.error("Register error:", err);
@@ -198,6 +200,7 @@ function App() {
         setCurrentUser(user);
         resetForm();
         closeLogin();
+        navigate("/");
       })
       .catch((err) => console.error("Login error:", err))
       .finally(() => setLoading(false));
@@ -273,14 +276,18 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    handleCardClick={handleCardClick}
-                    clothingItems={clothingItems}
-                    handleAddClick={handleAddClick}
-                    onEditProfile={openEditProfile}
-                    onCardLike={handleCardLike}
-                    onSignOut={handleSignOut}
-                  />
+                  isLoggedIn ? (
+                    <Profile
+                      handleCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                      handleAddClick={handleAddClick}
+                      onEditProfile={openEditProfile}
+                      onCardLike={handleCardLike}
+                      onSignOut={handleSignOut}
+                    />
+                  ) : (
+                    <Navigate to="/" replace />
+                  )
                 }
               />
             </Routes>

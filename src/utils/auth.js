@@ -1,4 +1,7 @@
 const baseUrl = "http://localhost:3001";
+const defaultHeaders = {
+  "Content-Type": "application/json",
+};
 
 function handleResponse(res) {
   if (res.ok) return res.json();
@@ -9,10 +12,19 @@ function handleResponse(res) {
     .catch(() => Promise.reject(res.status));
 }
 
+function getHeaders(withAuth = false, token) {
+  const headers = { ...defaultHeaders };
+  if (withAuth) {
+    const authToken = token || localStorage.getItem("jwt");
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+  }
+  return headers;
+}
+
 export function register({ name, avatar, email, password }) {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getHeaders(false),
     body: JSON.stringify({ name, avatar, email, password }),
   }).then(handleResponse);
 }
@@ -20,7 +32,7 @@ export function register({ name, avatar, email, password }) {
 export function authorize({ email, password }) {
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getHeaders(false),
     body: JSON.stringify({ email, password }),
   }).then(handleResponse);
 }
@@ -28,10 +40,7 @@ export function authorize({ email, password }) {
 export function checkToken(token) {
   return fetch(`${baseUrl}/users/me`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getHeaders(true, token),
   }).then(handleResponse);
 }
 
