@@ -4,33 +4,35 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ isOpen, card, onClose, onDeleteClick }) {
   const currentUser = useContext(CurrentUserContext);
+  const isOwner = card && currentUser && card.owner === currentUser._id;
 
   if (!isOpen || !card) return null;
 
-  const isOwner = currentUser && card.owner === currentUser._id;
-
   return (
-    <div className={`item-modal ${isOpen ? "item-modal_opened" : ""}`}>
-      <div className="item-modal__content">
-        <button className="item-modal__close" type="button" onClick={onClose}>
+    <div className="modal modal_opened" onClick={onClose}>
+      <div
+        className="modal__content modal__content_type_image"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="modal__close" onClick={onClose}>
           ×
         </button>
 
         <img
-          src={card.imageUrl}
+          src={card.imageUrl || card.link}
           alt={card.name}
-          className="item-modal__image"
+          className="modal__image"
         />
 
-        <div className="item-modal__footer">
-          <div className="item-modal__info">
-            <h2 className="item-modal__title">{card.name}</h2>
-            <p className="item-modal__weather">Weather: {card.weather}</p>
+        <div className="modal__footer">
+          <div className="modal__footer-info">
+            <h2 className="modal__title">{card.name}</h2>
+            <p className="modal__weather">Weather: {card.weather}</p>
           </div>
+
           {isOwner && (
             <button
-              type="button"
-              className="item-modal__delete-btn"
+              className="modal__delete-button"
               onClick={() => onDeleteClick(card)}
             >
               Delete item

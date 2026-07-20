@@ -5,14 +5,11 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const handleClick = () => {
-    if (onCardClick) onCardClick(item);
-  };
+  const handleClick = () => onCardClick && onCardClick(item);
 
   const handleLike = (e) => {
     e.stopPropagation();
-    if (!onCardLike) return;
-    onCardLike(item).catch((err) => console.error(err));
+    onCardLike && onCardLike(item);
   };
 
   const isLiked =
@@ -22,17 +19,25 @@ function ItemCard({ item, onCardClick, onCardLike }) {
 
   return (
     <li className="card" onClick={handleClick}>
-      <p className="card__title">{item.name}</p>
-      <img src={item.imageUrl} alt={item.name} className="card__image" />
-      {currentUser && (
-        <button
-          type="button"
-          className={`card__like-btn ${isLiked ? "card__like-btn_active" : ""}`}
-          onClick={handleLike}
-        >
-          ❤️
-        </button>
-      )}
+      <img
+        src={item.imageUrl || item.link}
+        alt={item.name}
+        className="card__image"
+        onError={(e) =>
+          (e.target.src = "https://via.placeholder.com/325x280?text=No+Image")
+        }
+      />
+      <div className="card__header">
+        <p className="card__title">{item.name}</p>
+        {currentUser && (
+          <button
+            className={`card__like-btn ${isLiked ? "card__like-btn_active" : ""}`}
+            onClick={handleLike}
+          >
+            {isLiked ? "❤️" : "♡"}
+          </button>
+        )}
+      </div>
     </li>
   );
 }

@@ -7,13 +7,14 @@ export default function ClothesSection({
   clothingItems,
   handleCardClick,
   handleAddClick,
-  title,
+  onCardLike,
+  title = "Clothing items",
   showAddButton = false,
   showOnlyByUser = false,
-  onCardLike,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
+  // Filter logic for Profile page (showOnlyByUser = true)
   const itemsToShow =
     showOnlyByUser && currentUser
       ? clothingItems.filter((item) => item.owner === currentUser._id)
@@ -21,29 +22,35 @@ export default function ClothesSection({
         ? []
         : clothingItems;
 
-  const canShowAdd = showAddButton && currentUser;
-
   return (
     <div className="clothes-section">
-      <div className="clothes-section__row">
-        <section className="clothes-section__text">{title}</section>
+      <div className="clothes-section__header">
+        <h2 className="clothes-section__title">{title}</h2>
 
-        {canShowAdd && (
-          <button className="clothes-section__btn" onClick={handleAddClick}>
+        {showAddButton && currentUser && (
+          <button
+            className="clothes-section__add-btn"
+            onClick={handleAddClick}
+            type="button"
+          >
             + Add new
           </button>
         )}
       </div>
 
       <ul className="clothes-section__items">
-        {itemsToShow.map((item) => (
-          <ItemCard
-            key={item._id}
-            item={item}
-            onCardClick={handleCardClick}
-            onCardLike={onCardLike}
-          />
-        ))}
+        {itemsToShow.length > 0 ? (
+          itemsToShow.map((item) => (
+            <ItemCard
+              key={item._id}
+              item={item}
+              onCardClick={handleCardClick}
+              onCardLike={onCardLike}
+            />
+          ))
+        ) : (
+          <p className="clothes-section__empty">No items found</p>
+        )}
       </ul>
     </div>
   );

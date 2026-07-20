@@ -12,8 +12,6 @@ function Header({
   weatherData,
   openLogin,
   openRegister,
-  openEditProfile,
-  handleSignOut,
 }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -29,18 +27,17 @@ function Header({
       <NavLink className="header__logo-link" to="/">
         <img className="header__logo" src={logo} alt="WTWR logo" />
       </NavLink>
+
       <p className="header__date-and-location">
-        {currentDate}, {weatherData.city}
+        {currentDate}, {weatherData.city || "Loading..."}
       </p>
 
       <ToggleSwitch />
 
+      {/* Add clothes button - only for logged in users */}
       {currentUser && (
         <button
-          onClick={() => {
-            console.log("add button clicked");
-            handleAddClick();
-          }}
+          onClick={handleAddClick}
           type="button"
           className="header__add-clothes-btn"
         >
@@ -48,43 +45,24 @@ function Header({
         </button>
       )}
 
+      {/* User avatar or Auth buttons */}
       {currentUser ? (
-        <>
-          <NavLink className="header__nav-link" to="/profile">
-            <div className="header__user-container">
-              <div className="header__user-name">{username}</div>
-              <button
-                type="button"
-                className="header__edit-btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (openEditProfile) openEditProfile();
-                }}
-              >
-                Edit
-              </button>
-
-              {avatarUrl ? (
-                <img
-                  className="header__avatar"
-                  src={avatarUrl}
-                  alt="user avatar"
-                />
-              ) : (
-                <span className="header__avatar">
-                  {username?.toUpperCase().charAt(0) || ""}
-                </span>
-              )}
-            </div>
-          </NavLink>
-          <button
-            type="button"
-            className="header__signout-btn"
-            onClick={() => handleSignOut && handleSignOut()}
-          >
-            Sign out
-          </button>
-        </>
+        <NavLink className="header__nav-link" to="/profile">
+          <div className="header__user-container">
+            <div className="header__user-name">{username}</div>
+            {avatarUrl ? (
+              <img
+                className="header__avatar"
+                src={avatarUrl}
+                alt="user avatar"
+              />
+            ) : (
+              <span className="header__avatar">
+                {username?.toUpperCase().charAt(0) || ""}
+              </span>
+            )}
+          </div>
+        </NavLink>
       ) : (
         <div className="header__auth">
           <button className="header__auth-btn" onClick={openRegister}>
@@ -96,6 +74,7 @@ function Header({
         </div>
       )}
 
+      {/* Mobile Menu Button */}
       <button
         onClick={handleMenuClick}
         type="button"

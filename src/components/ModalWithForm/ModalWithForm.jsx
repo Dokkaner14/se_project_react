@@ -5,25 +5,31 @@ function ModalWithForm({
   title,
   children,
   buttonText,
+  secondaryButtonText,
+  onSecondaryClick,
   isOpen,
   onClose,
   onSubmit,
 }) {
-  // Close with Escape key
+  // Close modal with Escape key
   useEffect(() => {
     if (!isOpen) return;
 
     const handleEsc = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+      }
     };
 
     document.addEventListener("keydown", handleEsc);
     return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
+  if (!isOpen) return null;
+
   return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div className="modal__content">
+    <div className="modal modal_opened" onClick={onClose}>
+      <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <button className="modal__close" type="button" onClick={onClose}>
           ×
         </button>
@@ -32,9 +38,22 @@ function ModalWithForm({
 
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit">
-            {buttonText}
-          </button>
+
+          <div className="modal__button-row">
+            <button type="submit" className="modal__submit">
+              {buttonText}
+            </button>
+
+            {secondaryButtonText && onSecondaryClick && (
+              <button
+                type="button"
+                className="modal__secondary"
+                onClick={onSecondaryClick}
+              >
+                {secondaryButtonText}
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

@@ -4,31 +4,22 @@ function DeleteConfirmModal({ isOpen, onClose, onConfirm }) {
   if (!isOpen) return null;
 
   return (
-    <div className={`delete-modal ${isOpen ? "delete-modal_opened" : ""}`}>
-      <div className="delete-modal__content">
-        <button className="delete-modal__close" type="button" onClick={onClose}>
+    <div className="modal modal_opened" onClick={onClose}>
+      <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal__close" onClick={onClose}>
           ×
         </button>
 
-        <p className="delete-modal__text">
-          Are you sure you want to delete this item? 
-          <br />  
-          This action is irreversible.
+        <h2 className="modal__title">Confirm Delete</h2>
+        <p className="modal__text">
+          Are you sure you want to delete this item?
         </p>
 
-        <div className="delete-modal__buttons">
-          <button
-            type="button"
-            className="delete-modal__confirm"
-            onClick={onConfirm}
-          >
-            Yes, delete item
+        <div className="modal__button-row">
+          <button className="modal__delete-confirm" onClick={onConfirm}>
+            Yes, delete
           </button>
-          <button
-            type="button"
-            className="delete-modal__cancel"
-            onClick={onClose}
-          >
+          <button className="modal__cancel" onClick={onClose}>
             Cancel
           </button>
         </div>

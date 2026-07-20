@@ -7,15 +7,16 @@ export default function Profile({
   handleCardClick,
   handleAddClick,
   onEditProfile,
-  onCardLike,
   onSignOut,
+  onCardLike,
 }) {
   return (
     <section className="profile">
       <SideBar onEditProfile={onEditProfile} onSignOut={onSignOut} />
+
       <ClothesSection
-        handleCardClick={handleCardClick}
         clothingItems={clothingItems}
+        handleCardClick={handleCardClick}
         handleAddClick={handleAddClick}
         onCardLike={onCardLike}
         title="Your items"

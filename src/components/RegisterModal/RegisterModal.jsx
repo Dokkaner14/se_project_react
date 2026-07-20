@@ -1,7 +1,12 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
 
-export default function RegisterModal({ isOpen, onClose, onRegister }) {
+export default function RegisterModal({
+  isOpen,
+  onClose,
+  onRegister,
+  onOpenLogin,
+}) {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     avatar: "",
@@ -9,19 +14,47 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
     password: "",
   });
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onRegister(values, resetForm);
-  }
+  };
 
   return (
     <ModalWithForm
-      title="Create account"
-      buttonText="Register"
+      title="Sign up"
+      buttonText="Sign up"
+      secondaryButtonText="Log in"
+      onSecondaryClick={onOpenLogin}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
     >
+      <label className="modal__label">
+        Name
+        <input
+          type="text"
+          name="name"
+          className="modal__input"
+          placeholder="Full name"
+          value={values.name}
+          onChange={handleChange}
+          required
+        />
+      </label>
+
+      <label className="modal__label">
+        Avatar URL
+        <input
+          type="url"
+          name="avatar"
+          className="modal__input"
+          placeholder="https://..."
+          value={values.avatar}
+          onChange={handleChange}
+          required
+        />
+      </label>
+
       <label className="modal__label">
         Email
         <input
@@ -29,8 +62,8 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
           name="email"
           className="modal__input"
           placeholder="Email"
-          onChange={handleChange}
           value={values.email}
+          onChange={handleChange}
           required
         />
       </label>
@@ -42,33 +75,9 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
           name="password"
           className="modal__input"
           placeholder="Password"
-          onChange={handleChange}
           value={values.password}
+          onChange={handleChange}
           required
-        />
-      </label>
-
-      <label className="modal__label">
-        Name
-        <input
-          type="text"
-          name="name"
-          className="modal__input"
-          placeholder="Full name"
-          onChange={handleChange}
-          value={values.name}
-        />
-      </label>
-
-      <label className="modal__label">
-        Avatar URL
-        <input
-          type="url"
-          name="avatar"
-          className="modal__input"
-          placeholder="https://..."
-          onChange={handleChange}
-          value={values.avatar}
         />
       </label>
     </ModalWithForm>
