@@ -17,7 +17,7 @@ export default function AddItemModal({ isOpen, onCloseModal, onAddItem }) {
   // Reset form when modal opens
   useEffect(() => {
     if (isOpen) resetForm();
-  }, [isOpen, resetForm]);
+  }, [isOpen]);
 
   return (
     <ModalWithForm
