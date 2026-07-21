@@ -60,7 +60,7 @@
 }
 
 .modal__button-row {
-  display: flex;
+  display: block;
   flex-direction: column;
   gap: 12px;
   margin-top: 16px;

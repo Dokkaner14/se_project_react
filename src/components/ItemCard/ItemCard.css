@@ -18,37 +18,39 @@
 }
 
 .card__header {
-  padding: 16px;
+  background-color: #fff;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
 
 .card__title {
   margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  flex: 1;
-  word-break: break-word;
+  background-color: white;
+  color: black;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
 }
 
 .card__like-btn {
-  background: none;
   border: none;
-  font-size: 20px;
+  background: white;
+  color: #000;
   cursor: pointer;
-  padding: 4px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.card__like-btn:hover {
-  transform: scale(1.1);
+  font-size: 18px;
+  padding: 4px 6px;
+  border-radius: 4px;
 }
 
 .card__like-btn_active {
-  color: #000;
+  color: black;
 }
 
 @media (max-width: 768px) {

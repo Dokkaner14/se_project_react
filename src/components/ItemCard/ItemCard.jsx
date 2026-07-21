@@ -34,7 +34,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
             className={`card__like-btn ${isLiked ? "card__like-btn_active" : ""}`}
             onClick={handleLike}
           >
-            {isLiked ? "❤️" : "♡"}
+            {isLiked ? "🖤" : "♡"}
           </button>
         )}
       </div>
