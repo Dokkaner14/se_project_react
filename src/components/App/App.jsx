@@ -69,6 +69,11 @@ function App() {
       .catch(console.error);
   };
 
+  const handleDeleteClick = (card) => {
+    setSelectedCard(card);
+    openModal("delete-confirmation");
+  };
+
   const handleDeleteItem = () => {
     removeItem(selectedCard._id)
       .then(() => {
@@ -238,7 +243,7 @@ function App() {
               isOpen={true}
               card={selectedCard}
               onClose={closeModal}
-              onDeleteClick={handleDeleteItem}
+              onDeleteClick={handleDeleteClick}
             />
           )}
 
