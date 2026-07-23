@@ -1,5 +1,5 @@
 import "./MobileMenu.css";
-import closeIcon from "../../assets/close.svg";
+import closeIcon from "../../assets/close.png";
 import avatar from "../../assets/avatar.png";
 
 function MobileMenu({ onClose, handleAddClick }) {

@@ -1,39 +1,60 @@
 .weather-card {
   position: relative;
-  display: flex;
-  height: 80px;
+  height: 140px; /* Adjusted height to match design */
   width: 100%;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: #fff;
+  margin-bottom: 32px;
 }
 
-.weather-card__temp {
-  color: #ffffff;
-  font: 700 36px/40px "Cabinet Grotesk";
-  margin: 0;
-  position: absolute;
-  top: 20px;
-  left: 16px;
+.weather-card__info {
+  position: relative;
   z-index: 1;
 }
 
-.weather-card__image {
-  object-fit: contain;
-  object-position: right top;
-  width: 100%;
+.weather-card__temp {
+  font: 700 48px / 52px "Cabinet Grotesk"; /* Larger temp like Figma */
+  margin: 0 0 4px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
+
+.weather-card__city {
+  font: 700 20px / 24px "Cabinet Grotesk";
+  margin: 0;
+  opacity: 0.95;
+}
+
+.weather-card__image {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  height: 110px; /* Better size */
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ==================== RESPONSIVE ==================== */
 
 @media screen and (max-width: 627px) {
   .weather-card {
-    height: 80px;
-    border-radius: 12px;
-    margin-bottom: 32px;
+    height: 110px;
+    padding: 0 20px;
+    margin-bottom: 24px;
   }
 
   .weather-card__temp {
-    font-size: 36px;
-    line-height: 40px;
-    top: 20px;
-    left: 16px;
+    font-size: 42px;
+    line-height: 46px;
+  }
+
+  .weather-card__image {
+    height: 85px;
+    right: 10px;
   }
 }

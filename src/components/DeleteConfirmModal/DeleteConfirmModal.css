@@ -1,75 +1,79 @@
-.delete-modal {
-  display: none;
+.modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-  justify-content: center;
-  align-items: center;
-}
-
-.delete-modal_opened {
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
 }
 
-.delete-modal__content {
-  width: 580px;
-  height: 250px;
+.modal__content {
   background-color: #fff;
   border-radius: 20px;
-  padding: 60px 60px;
-  box-sizing: border-box;
   position: relative;
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-} 
-
-.delete-modal__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  line-height: 1;
-  color: #000;
-}
-
-.delete-modal__text {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 498px;
+  padding: 40px 36px 36px;
+  box-sizing: border-box;
   text-align: center;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
 }
 
-.delete-modal__buttons {
+.modal__content_type_delete {
+  max-width: 498px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background: url(../../images/newCloseBtn.png) no-repeat center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.modal__delete-text {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin: 0 0 40px;
+  color: #000;
+}
+
+.modal__delete-buttons {
   display: flex;
   flex-direction: column;
+  gap: 24px;
   align-items: center;
-  gap: 16px;
-  margin-top: 30px;
+}
+
+.modal__delete-btn {
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
   font-size: 20px;
-}
-
-.delete-modal__confirm {
-  background: none;
-  border: none;
-  color: #f00;
-  font-size: 16px;
+  line-height: 24px;
   cursor: pointer;
-  text-align: left;
   padding: 0;
 }
 
-.delete-modal__cancel {
+.modal__cancel-btn {
   background: none;
   border: none;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: left;
-  padding: 0;
   color: #000;
- 
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  cursor: pointer;
+  padding: 0;
 }

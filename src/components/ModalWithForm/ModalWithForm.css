@@ -35,12 +35,13 @@
   margin: 0 0 24px 0;
   font-size: 16px;
   font-weight: 700;
-  text-align: center;
+  text-align: left;
 }
 
 .modal__form {
   display: flex;
   flex-direction: column;
+  text-align: left;
   gap: 24px;
 }
 

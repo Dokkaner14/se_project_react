@@ -1,90 +1,82 @@
-.sidebar__avatar {
-  height: 56px;
-  margin-left: 12px;
-  flex: 0 0 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
 .sidebar {
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.sidebar__profile {
+.sidebar__user {
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   gap: 16px;
 }
 
-.sidebar__user-name {
-  font: 700 20px / 24px "Cabinet Grotesk";
-  font: 700 20px/24px "Cabinet Grotesk";
-  margin: 0;
-  white-space: nowrap;
-}
-
-.sidebar__logo {
-  margin-right: 24px;
-}
-
-.sidebar__date-and-location {
-  margin-right: auto;
-  font: 700 20px/24px "Cabinet Grotesk";
-}
-
-.sidebar__add-clothes-btn {
-  border: none;
-  background: transparent;
-  margin: 0 20px 0 0;
-  font: 700 20px/24px "Cabinet Grotesk";
-  cursor: pointer;
-}
-
-.sidebar__user-container {
+.sidebar__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  background-color: #d9d9d9;
+  color: #000;
+  font:
+    700 20px/24px "Cabinet Grotesk",
+    sans-serif;
 }
 
-.sidebar__menu-btn {
-  display: none;
+.sidebar__username {
+  margin: 0;
+  white-space: nowrap;
+  font:
+    700 20px/24px "Cabinet Grotesk",
+    sans-serif;
+}
+
+.sidebar__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.sidebar__edit-btn,
+.sidebar__signout-btn {
   border: none;
-  margin-left: auto;
   background: transparent;
   padding: 0;
   cursor: pointer;
+  text-align: left;
+  font:
+    700 20px/24px "Cabinet Grotesk",
+    sans-serif;
 }
 
-.sidebar__menu-icon {
-  display: block;
-  width: 44px;
-  height: 44px;
+.sidebar__edit-btn:hover,
+.sidebar__signout-btn:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 627px) {
   .sidebar {
-    flex-wrap: wrap;
-    row-gap: 30px;
-    padding: 18px 0 16px;
+    gap: 20px;
   }
 
-  .sidebar__logo {
-    margin-right: 0;
+  .sidebar__user {
+    gap: 12px;
   }
 
-  .sidebar__date-and-location {
-    order: 2;
-    width: 100%;
-    margin: 0;
-    font: 700 20px/24px "Cabinet Grotesk";
+  .sidebar__avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
   }
 
-  .sidebar__add-clothes-btn,
-  .sidebar__user-container {
-    display: none;
-  }
-  .sidebar__menu-btn {
-    display: block;
+  .sidebar__username,
+  .sidebar__edit-btn,
+  .sidebar__signout-btn {
+    font-size: 18px;
+    line-height: 22px;
   }
 }

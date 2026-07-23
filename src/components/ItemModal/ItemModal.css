@@ -1,37 +1,72 @@
-.item-modal {
+.modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   z-index: 1000;
 }
 
-.item-modal__footer {
+.modal_opened {
+  display: flex;
+}
+
+.modal__content {
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  max-width: 498px;
+  max-height: 678px; /* Design total height */
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Image container */
+.modal__content_type_image {
+  padding: 0;
+}
+
+/* The actual image - Fixed 498px as per design */
+.modal__image {
+  width: 100%;
+  max-height: 498px; /* Fixed image height */
+  flex-shrink: 1;
+  object-fit: cover;
+}
+
+.modal__footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 15px 20px;
- 
+  flex-shrink: 0;
+  /* ~101px footer area */
 }
-.item-modal__info {
+
+.modal__info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
 }
 
-.item-modal__weather {
+.modal__weather {
   margin-left: 10px;
-
-
 }
 
-.item-modal__delete-btn {
+.modal__title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  margin-left: 12px;
+}
+
+.modal__delete-button {
   background: none;
   border: none;
   color: #f00;
@@ -40,48 +75,20 @@
   padding: 0;
 }
 
-.item-modal_opened {
-  display: flex;
-}
-
-.item-modal__content {
-  background-color: #fff;
-  border-radius: 20px;
-  max-width: 498px;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.item-modal__image {
-  width: 100%;
-  height: 498px;
-  object-fit: cover;
-}
-
-.item-modal__title {
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0px;
-  text-align: center;
-  margin-left: 12px;
-}
-
-.item-modal__close {
+.modal__close {
   position: absolute;
   top: 20px;
   right: 20px;
   width: 32px;
   height: 32px;
-  background: url("/close-icon.svg") no-repeat center;
+  background: url("/close-icon.png") no-repeat center;
   background-size: 32px;
   border: none;
   cursor: pointer;
   opacity: 0.6;
   z-index: 2;
-  font-size: 32px;
 }
 
-.item-modal__close:hover {
+.modal__close:hover {
   opacity: 1;
 }

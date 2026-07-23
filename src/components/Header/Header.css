@@ -1,7 +1,14 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 32px 0 28px;
+  padding: 32px 40px 28px; /* Updated to match typical mock-up spacing */
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header__logo-link {
+  display: flex;
+  align-items: center;
 }
 
 .header__logo {
@@ -10,50 +17,51 @@
 
 .header__date-and-location {
   margin-right: auto;
-  font: 700 20px/24px "Cabinet Grotesk";
+  font: 700 20px / 24px "Cabinet Grotesk";
+  color: #000;
+  white-space: nowrap;
 }
 
 .header__add-clothes-btn {
   border: none;
   background: transparent;
-  margin: 0 20px 0 0;
-  font: 700 20px/24px "Cabinet Grotesk";
+  margin-right: 20px;
+  font: 700 20px / 24px "Cabinet Grotesk";
   cursor: pointer;
+  color: #000;
 }
 
 .header__user-container {
   display: flex;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
 }
 
 .header__user-name {
   font: 700 20px / 24px "Cabinet Grotesk";
   margin: 0;
   white-space: nowrap;
-  color: black;
+  color: #000;
 }
 
 .header__avatar {
   height: 40px;
-  margin-left: 12px;
-  flex: 0 0 40px;
+  width: 40px;
   border-radius: 50%;
   object-fit: cover;
-  display: block;
 }
 
 .header__auth {
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-left: 16px;
 }
 
 .header__auth-btn {
   border: none;
   background: transparent;
-  font: 700 18px/22px "Cabinet Grotesk";
+  font: 700 18px / 22px "Cabinet Grotesk";
   color: #000;
   cursor: pointer;
   padding: 0;
@@ -66,50 +74,44 @@
 .header__menu-btn {
   display: none;
   border: none;
-  margin-left: auto;
   background: transparent;
   padding: 0;
   cursor: pointer;
 }
 
 .header__menu-icon {
-  display: block;
   width: 44px;
   height: 44px;
 }
 
-.header__nav-link {
-  color: black;
-  text-decoration: none;
-}
-
-.header__logo-link {
-  display: flex;
-}
+/* ==================== RESPONSIVE ==================== */
 
 @media screen and (max-width: 627px) {
   .header {
+    padding: 18px 20px 16px; /* Smaller padding on mobile */
     flex-wrap: wrap;
-    row-gap: 30px;
-    padding: 18px 0 16px;
+    row-gap: 20px;
   }
 
   .header__logo {
-    margin-right: 0;
+    margin-right: 16px;
   }
 
   .header__date-and-location {
     order: 2;
     width: 100%;
     margin: 0;
-    font: 700 20px/24px "Cabinet Grotesk";
+    font: 700 18px / 22px "Cabinet Grotesk";
   }
 
   .header__add-clothes-btn,
-  .header__user-container {
+  .header__user-container,
+  .header__auth {
     display: none;
   }
+
   .header__menu-btn {
     display: block;
+    margin-left: auto;
   }
 }

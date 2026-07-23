@@ -45,13 +45,101 @@ function App() {
 
   const navigate = useNavigate();
 
-  // Toggle temperature unit
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
   };
 
   const openModal = (modalName) => setActiveModal(modalName);
   const closeModal = () => setActiveModal("");
+
+  // Login with hard refresh
+  const handleLogin = (values, resetForm) => {
+    authorize(values)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        resetForm();
+        closeModal();
+        window.location.reload(); // Forces full page refresh
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
+        alert("Login failed. Please try again.");
+      });
+  };
+
+  // Register with hard refresh
+  const handleRegister = (values, resetForm) => {
+    register(values)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        resetForm();
+        closeModal();
+        window.location.reload(); // Forces full page refresh
+      })
+      .catch((err) => {
+        console.error("Registration failed:", err);
+        alert("Registration failed. Please try again.");
+      });
+  };
+
+  const handleUpdateUser = (values, resetForm) => {
+    const token = localStorage.getItem("jwt");
+    return updateUserProfile(values, token)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        resetForm();
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Update failed:", err);
+        alert("Update failed. Please try again.");
+      });
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    navigate("/");
+  };
+
+  // Initial data load and token check
+  useEffect(() => {
+    getWeatherData(coordinates, apiKey)
+      .then((data) => setWeatherData(filterWeatherData(data)))
+      .catch(console.error);
+
+    getItems()
+      .then((data) => setClothingItems(data.reverse()))
+      .catch(console.error);
+
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      checkToken(token)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        })
+        .catch(() => localStorage.removeItem("jwt"));
+    }
+  }, []);
+
+  // ESC key handler
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -108,80 +196,6 @@ function App() {
       .catch(console.error);
   };
 
-  const handleLogin = (values, resetForm) => {
-    authorize(values)
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setCurrentUser(res.user);
-        setIsLoggedIn(true);
-        resetForm();
-        closeModal();
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("Login failed:", err);
-        alert("Login failed. Please try again.");
-      });
-  };
-
-  const handleRegister = (values, resetForm) => {
-    register(values)
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setCurrentUser(res.user);
-        setIsLoggedIn(true);
-        resetForm();
-        closeModal();
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("Registration failed:", err);
-        alert("Registration failed. Please try again.");
-      });
-  };
-
-  const handleUpdateUser = (values, resetForm) => {
-    const token = localStorage.getItem("jwt");
-    return updateUserProfile(values, token)
-      .then((updatedUser) => {
-        setCurrentUser(updatedUser);
-        resetForm();
-        closeModal();
-      })
-      .catch((err) => {
-        console.error("Update failed:", err);
-        alert("Update failed. Please try again.");
-      });
-  };
-
-  const handleSignOut = () => {
-    localStorage.removeItem("jwt");
-    setIsLoggedIn(false);
-    setCurrentUser(null);
-    navigate("/");
-  };
-
-  // Initial data load
-  useEffect(() => {
-    getWeatherData(coordinates, apiKey)
-      .then((data) => setWeatherData(filterWeatherData(data)))
-      .catch(console.error);
-
-    getItems()
-      .then((data) => setClothingItems(data.reverse()))
-      .catch(console.error);
-
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      checkToken(token)
-        .then((user) => {
-          setCurrentUser(user);
-          setIsLoggedIn(true);
-        })
-        .catch(() => localStorage.removeItem("jwt"));
-    }
-  }, []);
-
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -190,7 +204,6 @@ function App() {
         <div className="page">
           <Header
             handleAddClick={() => openModal("add-garment")}
-            handleMenuClick={() => {}}
             weatherData={weatherData}
             openLogin={() => openModal("login")}
             openRegister={() => openModal("register")}
