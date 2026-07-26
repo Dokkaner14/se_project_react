@@ -265,6 +265,7 @@ function App() {
               isOpen={true}
               onClose={closeModal}
               onConfirm={handleDeleteItem}
+              onDelete={handleDeleteItem}
             />
           )}
 
