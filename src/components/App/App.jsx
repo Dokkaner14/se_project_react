@@ -62,7 +62,7 @@ function App() {
         window.location.reload(); // Forces full page refresh
       })
       .catch((err) => {
-        console.error("Login failed:", err);
+        console.error("Login Failed:", err);
         alert("Login failed. Please try again.");
       });
   };
