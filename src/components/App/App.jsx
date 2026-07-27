@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 
 import Header from "../Header/Header";
@@ -26,6 +26,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import { register, authorize, checkToken } from "../../utils/auth";
 import { updateUserProfile } from "../../utils/api";
@@ -52,14 +53,18 @@ function App() {
   const openModal = (modalName) => setActiveModal(modalName);
   const closeModal = () => setActiveModal("");
 
-  // Login with hard refresh
+  // Login – set token + user state (no reload)
   const handleLogin = (values, resetForm) => {
     authorize(values)
       .then((res) => {
         localStorage.setItem("jwt", res.token);
+        return checkToken(res.token); // get user data
+      })
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
         resetForm();
         closeModal();
-        window.location.reload(); // Forces full page refresh
       })
       .catch((err) => {
         console.error("Login Failed:", err);
@@ -67,14 +72,18 @@ function App() {
       });
   };
 
-  // Register with hard refresh
+  // Register – set token + user state (no reload)
   const handleRegister = (values, resetForm) => {
     register(values)
       .then((res) => {
         localStorage.setItem("jwt", res.token);
+        return checkToken(res.token); // get user data
+      })
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
         resetForm();
         closeModal();
-        window.location.reload(); // Forces full page refresh
       })
       .catch((err) => {
         console.error("Registration failed:", err);
@@ -224,7 +233,7 @@ function App() {
             <Route
               path="/profile"
               element={
-                isLoggedIn ? (
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <Profile
                     clothingItems={clothingItems}
                     handleCardClick={handleCardClick}
@@ -233,9 +242,7 @@ function App() {
                     onSignOut={handleSignOut}
                     onCardLike={handleCardLike}
                   />
-                ) : (
-                  <Navigate to="/" replace />
-                )
+                </ProtectedRoute>
               }
             />
           </Routes>
