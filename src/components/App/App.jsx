@@ -75,15 +75,8 @@ function App() {
   // Register – set token + user state (no reload)
   const handleRegister = (values, resetForm) => {
     register(values)
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        return checkToken(res.token); // get user data
-      })
-      .then((user) => {
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-        resetForm();
-        closeModal();
+      .then(() => {
+        handleLogin(values, resetForm); // Log in after registration
       })
       .catch((err) => {
         console.error("Registration failed:", err);
